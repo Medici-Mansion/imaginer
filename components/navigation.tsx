@@ -19,7 +19,10 @@ const Navigation = () => {
   return (
     <div className="flex items-center justify-around">
       {NavigationList.map((item) => (
-        <div key={item.title} className={cn("border px-7 py-2")}>
+        <div
+          key={`${item.title} ${item.href}`}
+          className={cn("border px-7 py-2")}
+        >
           {item.title}
         </div>
       ))}
