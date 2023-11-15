@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 
 interface Navigation {
@@ -7,9 +9,9 @@ interface Navigation {
 }
 
 const NavigationList: Navigation[] = [
-  { title: "Subject", href: "/subject", active: false },
+  { title: "Subject", href: "/subject", active: true },
   { title: "Style", href: "/style", active: false },
-  { title: `ArtistReference`, href: "/artistiReference", active: false },
+  { title: `ArtistcReference`, href: "/artistiReference", active: false },
   { title: "Composition", href: "/composition", active: false },
   { title: "Mood", href: "/mood", active: false },
   { title: "Tone", href: "/tone", active: false },
@@ -17,11 +19,14 @@ const NavigationList: Navigation[] = [
 
 const Navigation = () => {
   return (
-    <div className="flex items-center justify-around">
+    <div className="flex items-center justify-center gap-x-20 pt-10">
       {NavigationList.map((item) => (
         <div
-          key={`${item.title} ${item.href}`}
-          className={cn("border px-7 py-2")}
+          key={item.title}
+          className={cn(
+            "bg-[#110F19] w-[180px] border-2 border-[#292730] rounded-md py-3 text-center cursor-pointer",
+            item.active ? "border-[#5854FF]" : ""
+          )}
         >
           {item.title}
         </div>
