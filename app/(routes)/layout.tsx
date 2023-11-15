@@ -3,7 +3,7 @@ import { PropsWithChildren } from "react";
 
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
-    <div className="bg-slate-900 h-full text-white">
+    <div className="h-full text-white">
       <Navigation />
       {children}
     </div>
