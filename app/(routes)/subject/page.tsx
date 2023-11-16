@@ -43,16 +43,26 @@ const SubjectPage = () => {
                 <FormLabel className="text-bold flex justify-center text-[#FFF] text-[40px]">
                   What are you thinking of?
                 </FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="shadcn"
-                    {...field}
-                    className="m-auto w-[40%] bg-[#110F19] py-7 rounded-full border-none"
-                    rightIcon
-                  />
-                </FormControl>
-
-                <FormMessage />
+                <div className="relative">
+                  <FormControl>
+                    <Input
+                      placeholder=""
+                      {...field}
+                      className="m-auto w-[40%] bg-[#110F19] py-7 rounded-full border-none"
+                    />
+                  </FormControl>
+                  <button
+                    className="absolute right-[31%] top-1/2 pr-2 hover:cursor-pointer -translate-y-1/2"
+                    type="submit"
+                  >
+                    <Image
+                      src={"/images/send.png"}
+                      width={20}
+                      height={20}
+                      alt="send"
+                    />
+                  </button>
+                </div>
               </FormItem>
             )}
           />
