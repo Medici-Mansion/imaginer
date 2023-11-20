@@ -1,8 +1,10 @@
 import { cn } from "@/lib/utils";
 import { Dispatch, SetStateAction, useState } from "react";
+import { SubjectSkeleton } from "@/components/skeleton";
 
 interface SubjectProps {
   subjects: string[];
+  loading: boolean;
   select: {
     subject: string;
     id: number;
@@ -10,9 +12,14 @@ interface SubjectProps {
   setSelect: Dispatch<SetStateAction<{ subject: string; id: number }>>;
 }
 
-const SubjectRadio = ({ subjects, select, setSelect }: SubjectProps) => {
+const SubjectRadio = ({
+  subjects,
+  select,
+  setSelect,
+  loading,
+}: SubjectProps) => {
   return (
-    <div className="pt-5">
+    <div className="pt-5 w-full">
       {subjects.map((item: string, index: number) => (
         <div
           key={index}
