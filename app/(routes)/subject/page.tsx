@@ -31,6 +31,7 @@ const SubjectPage = () => {
   const { addPrompt, promptData } = usePrompt();
   const [visible, setVisible] = useState(false);
   const [subjects, setSubjects] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
   const [select, setSelect] = useState({
     subject: "",
     id: 0,
@@ -44,10 +45,12 @@ const SubjectPage = () => {
   });
 
   const thinkSubmit = async (values: z.infer<typeof formSchema>) => {
+    setLoading(true);
     const response = await APIs.getSubjectList(values);
     if (response.ok) {
       setSubjects(response.data);
       setVisible(true);
+      setLoading(false);
     }
   };
 
@@ -55,8 +58,6 @@ const SubjectPage = () => {
     addPrompt({ subject: select.subject });
     router.push("/style");
   };
-
-  console.log(promptData, "<<<<<<");
 
   return (
     <div>
@@ -107,6 +108,7 @@ const SubjectPage = () => {
               subjects={subjects}
               select={select}
               setSelect={setSelect}
+              loading={loading}
             />
             <Refresh onClick={() => console.log("123")} />
           </>
