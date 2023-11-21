@@ -1,30 +1,22 @@
-import { cn } from "@/lib/utils";
+"use client";
 
-interface Navigation {
-  title: string;
-  href: string;
-  active: boolean;
-}
+import { usePathname } from "next/navigation";
 
-const NavigationList: Navigation[] = [
-  { title: "Subject", href: "/subject", active: false },
-  { title: "Style", href: "/style", active: false },
-  { title: `ArtistReference`, href: "/artistiReference", active: false },
-  { title: "Composition", href: "/composition", active: false },
-  { title: "Mood", href: "/mood", active: false },
-  { title: "Tone", href: "/tone", active: false },
-];
+import { NavList } from "@/types";
+import Nav from "@/components/nav";
 
-const Navigation = () => {
+const Navigation = ({ navList }: { navList: NavList[] }) => {
+  const pathname = usePathname();
+
   return (
-    <div className="flex items-center justify-around">
-      {NavigationList.map((item) => (
-        <div
-          key={`${item.title} ${item.href}`}
-          className={cn("border px-7 py-2")}
-        >
-          {item.title}
-        </div>
+    <div className="flex items-center justify-center gap-x-20 pt-10">
+      {navList.map((item) => (
+        <Nav
+          key={item.title}
+          href={item.href}
+          pathname={pathname}
+          title={item.title}
+        />
       ))}
     </div>
   );
