@@ -8,7 +8,10 @@ const instance = axios.create({
 })
 
 
-const getSubjectList = async (param: object) => {
+const getSubjectList = async (param: {
+  sentence
+  : string
+}) => {
   const res = await instance.post(`/prompt`, param)
   return res.data
 }

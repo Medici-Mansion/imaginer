@@ -1,7 +1,7 @@
 import { HTMLAttributes, Dispatch, SetStateAction } from "react";
 
 export interface FormData {
-  subject: string
+  sentence: string
 }
 
 export interface NavList {
