@@ -1,7 +1,6 @@
 "use client";
 
 import * as z from "zod";
-import Image from "next/image";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
@@ -10,17 +9,11 @@ import { useRouter } from "next/navigation";
 import usePrompt from "@/store";
 import APIs from "@/apis";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Form } from "@/components/ui/form";
 import Refresh from "@/components/refresh";
 import SubmitButton from "@/components/submit-button";
 import SubjectRadio from "@/components/subject-radio";
+import IconInput from "@/components/icon-input";
 
 const formSchema = z.object({
   sentence: z.string().min(1),
@@ -63,42 +56,7 @@ const SubjectPage = () => {
     <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(thinkSubmit)} className="space-y-8">
-          <FormField
-            control={form.control}
-            name="sentence"
-            render={({ field }) => (
-              <FormItem className="pt-28 space-y-5">
-                <FormLabel className="text-bold flex justify-center text-[#FFF] text-[40px]">
-                  What are you thinking of?
-                </FormLabel>
-                <div className="relative">
-                  <FormControl>
-                    <Input
-                      placeholder="Type your subject"
-                      {...field}
-                      className="m-auto w-[40%] bg-[#110F19] py-7 rounded-full border-none"
-                    />
-                  </FormControl>
-                  <button
-                    className="absolute right-[31%] top-1/2 pr-2 hover:cursor-pointer -translate-y-1/2"
-                    type="submit"
-                    disabled={!form.getValues().sentence}
-                  >
-                    <Image
-                      src={
-                        !form.getValues().sentence
-                          ? "/images/send.png"
-                          : "/images/send_fill.png"
-                      }
-                      width={20}
-                      height={20}
-                      alt="send"
-                    />
-                  </button>
-                </div>
-              </FormItem>
-            )}
-          />
+          <IconInput form={form} label={"What are you thinking of?"} />
         </form>
       </Form>
       <div className="w-[70%] m-auto">
