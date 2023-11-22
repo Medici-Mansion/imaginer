@@ -8,7 +8,7 @@ interface SubjectProps {
     id: number;
   };
   setSelect: Dispatch<SetStateAction<{ subject: string; id: number }>>;
-  loading: boolean; // Assuming you have a loading state
+  loading: boolean;
 }
 
 const SubjectRadio = ({
