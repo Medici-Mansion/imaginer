@@ -6,7 +6,7 @@ import Navigation from "@/components/navigation";
 import Prompt from "@/components/prompt";
 
 const NavigationList: NavList[] = [
-  { title: "Subject", href: "/subject", active: true },
+  { title: "Subject", href: "/", active: true },
   { title: "Style", href: "/style", active: false },
   { title: `ArtisticReference`, href: "/artisticreference", active: false },
   { title: "Composition", href: "/composition", active: false },
