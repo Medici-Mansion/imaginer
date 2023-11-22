@@ -56,7 +56,11 @@ const SubjectPage = () => {
     <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(thinkSubmit)} className="space-y-8">
-          <IconInput form={form} label={"What are you thinking of?"} />
+          <IconInput
+            form={form}
+            label={"What are you thinking of?"}
+            loading={loading}
+          />
         </form>
       </Form>
       <div className="w-[70%] m-auto">

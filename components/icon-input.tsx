@@ -10,13 +10,15 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
+import { RotateCw } from "lucide-react";
 
 interface IconInputProps {
   form: UseFormReturn<FormData>;
   label?: string;
+  loading?: boolean;
 }
 
-const IconInput = ({ form, label }: IconInputProps) => {
+const IconInput = ({ form, label, loading }: IconInputProps) => {
   return (
     <FormField
       control={form.control}
@@ -40,16 +42,20 @@ const IconInput = ({ form, label }: IconInputProps) => {
               type={"submit"}
               disabled={!form.getValues().sentence}
             >
-              <Image
-                src={
-                  !form.getValues().sentence
-                    ? "/images/send.png"
-                    : "/images/send_fill.png"
-                }
-                width={20}
-                height={20}
-                alt="send"
-              />
+              {loading ? (
+                <RotateCw className="animate-spin w-5 h-5" />
+              ) : (
+                <Image
+                  src={
+                    !form.getValues().sentence
+                      ? "/images/send.png"
+                      : "/images/send_fill.png"
+                  }
+                  width={20}
+                  height={20}
+                  alt="send"
+                />
+              )}
             </button>
           </div>
         </FormItem>
