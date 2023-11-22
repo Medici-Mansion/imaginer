@@ -4,17 +4,27 @@ import { useState } from "react";
 
 import { Images } from "@/types";
 import ImageCard from "@/components/image-card";
-
-const images: Images[] = [
-  { id: 1, href: "/images/style1.png" },
-  { id: 2, href: "/images/style2.png" },
-  { id: 3, href: "/images/style3.png" },
-  { id: 4, href: "/images/style4.png" },
-  { id: 5, href: "/images/style5.png" },
-];
+import Refresh from "@/components/refresh";
 
 const StylePage = () => {
+  const options = ["style", "artistic", "composition"];
+  const [selectedOption, setSelectedOption] = useState(options[0]);
   const [selectId, setSelectId] = useState(0);
+
+  const handleButtonClick = () => {
+    const randomIndex = Math.floor(Math.random() * options.length);
+    const newSelectedOption = options[randomIndex];
+    setSelectedOption(newSelectedOption);
+  };
+
+  const images: Images[] = [
+    { id: 1, href: `/images/${selectedOption}1.png` },
+    { id: 2, href: `/images/${selectedOption}2.png` },
+    { id: 3, href: `/images/${selectedOption}3.png` },
+    { id: 4, href: `/images/${selectedOption}4.png` },
+    { id: 5, href: `/images/${selectedOption}5.png` },
+  ];
+
   return (
     <div className="pt-28">
       <div className="text-center text-[40px]">
@@ -31,6 +41,7 @@ const StylePage = () => {
           />
         ))}
       </div>
+      <Refresh onClick={handleButtonClick} />
     </div>
   );
 };
