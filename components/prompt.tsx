@@ -12,7 +12,7 @@ const Prompt = () => {
 
   return (
     <div className="pt-10">
-      {pathname !== "/subject" ? (
+      {pathname !== "/" ? (
         <div className="flex gap-1">
           <div>A</div>
           <div>
