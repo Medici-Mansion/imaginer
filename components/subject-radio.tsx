@@ -1,15 +1,14 @@
 import { cn } from "@/lib/utils";
 import { Dispatch, SetStateAction, useState } from "react";
-import { SubjectSkeleton } from "@/components/skeleton";
 
 interface SubjectProps {
   subjects: string[];
-  loading: boolean;
   select: {
     subject: string;
     id: number;
   };
   setSelect: Dispatch<SetStateAction<{ subject: string; id: number }>>;
+  loading: boolean; // Assuming you have a loading state
 }
 
 const SubjectRadio = ({
@@ -25,14 +24,17 @@ const SubjectRadio = ({
           key={index}
           className={cn(
             "flex gap-2 mt-5 bg-[#232323] px-4 py-3 rounded-sm cursor-pointer",
-            select.id === index ? "text-white bg-[#5854FF]" : ""
+            select.id === index ? "text-white bg-[#5854FF]" : "",
+            loading && "opacity-50"
           )}
-          onClick={() =>
-            setSelect({
-              subject: item,
-              id: index,
-            })
-          }
+          onClick={() => {
+            if (!loading) {
+              setSelect({
+                subject: item,
+                id: index,
+              });
+            }
+          }}
         >
           <div>{index + 1}</div>
           <div>{item}</div>
