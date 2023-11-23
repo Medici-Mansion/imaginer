@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import usePrompt from "@/store";
+import { useLoadingStore } from "@/store/loading";
 import APIs from "@/apis";
 
 import { Form } from "@/components/ui/form";
@@ -22,9 +23,9 @@ const formSchema = z.object({
 const SubjectPage = () => {
   const router = useRouter();
   const { addPrompt, promptData } = usePrompt();
+  const { isLoading, setLoading } = useLoadingStore();
   const [visible, setVisible] = useState(false);
   const [subjects, setSubjects] = useState<string[]>([]);
-  const [loading, setLoading] = useState(false);
   const [select, setSelect] = useState({
     subject: "",
     id: 0,
@@ -56,7 +57,11 @@ const SubjectPage = () => {
     <div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(thinkSubmit)} className="space-y-8">
-          <IconInput form={form} label={"What are you thinking of?"} />
+          <IconInput
+            form={form}
+            label={"What are you thinking of?"}
+            isLoading={isLoading}
+          />
         </form>
       </Form>
       <div className="w-[70%] m-auto">
@@ -66,7 +71,7 @@ const SubjectPage = () => {
               subjects={subjects}
               select={select}
               setSelect={setSelect}
-              loading={loading}
+              loading={isLoading}
             />
             <Refresh onClick={() => console.log("123")} />
           </>
@@ -77,9 +82,9 @@ const SubjectPage = () => {
           <SubmitButton
             className="bg-[#5854FF] px-16"
             onClick={subjectSubmit}
-            disabled={!form.getValues().sentence}
+            disabled={!form.getValues().sentence || isLoading}
           >
-            Create
+            {"Create"}
           </SubmitButton>
         </div>
       )}

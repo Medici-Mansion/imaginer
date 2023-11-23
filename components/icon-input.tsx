@@ -1,3 +1,5 @@
+"use client";
+
 import { UseFormReturn } from "react-hook-form";
 import Image from "next/image";
 
@@ -15,10 +17,10 @@ import { RotateCw } from "lucide-react";
 interface IconInputProps {
   form: UseFormReturn<FormData>;
   label?: string;
-  loading?: boolean;
+  isLoading?: boolean;
 }
 
-const IconInput = ({ form, label, loading }: IconInputProps) => {
+const IconInput = ({ form, label, isLoading }: IconInputProps) => {
   return (
     <FormField
       control={form.control}
@@ -34,16 +36,16 @@ const IconInput = ({ form, label, loading }: IconInputProps) => {
                 placeholder="Type your subject"
                 {...field}
                 value={field.value || ""}
-                disabled={loading}
+                disabled={isLoading}
                 className="m-auto w-[40%] bg-[#110F19] py-7 rounded-full border-none"
               />
             </FormControl>
             <button
               className="absolute right-[31%] top-1/2 pr-2 hover:cursor-pointer -translate-y-1/2"
               type={"submit"}
-              disabled={!form.getValues().sentence || loading}
+              disabled={!form.getValues().sentence || isLoading}
             >
-              {loading ? (
+              {isLoading ? (
                 <RotateCw className="animate-spin w-5 h-5" />
               ) : (
                 <Image
