@@ -4,8 +4,10 @@ import { usePathname } from "next/navigation";
 
 import { NavList } from "@/types";
 import Nav from "@/components/nav";
+import { useLoadingStore } from "@/store/loading";
 
 const Navigation = ({ navList }: { navList: NavList[] }) => {
+  const { isLoading } = useLoadingStore();
   const pathname = usePathname();
 
   return (
@@ -16,6 +18,7 @@ const Navigation = ({ navList }: { navList: NavList[] }) => {
           href={item.href}
           pathname={pathname}
           title={item.title}
+          isLoading={isLoading}
         />
       ))}
     </div>
