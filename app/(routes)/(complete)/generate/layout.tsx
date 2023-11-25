@@ -14,12 +14,12 @@ const NavigationList: NavList[] = [
   { title: "Tone", href: "/tone", active: false },
 ];
 
-const RootLayout = ({ children }: PropsWithChildren) => {
+const RootLayout = ({ children, ...rest }: PropsWithChildren) => {
   return (
-    <div className="h-full text-white w-[80%] m-auto">
+    <div className="h-full w-[80%] m-auto">
       <Navigation navList={NavigationList} />
-      {children}
       <Prompt />
+      {children}
     </div>
   );
 };
