@@ -16,7 +16,7 @@ import SubmitButton from "@/components/submit-button";
 import SubjectRadio from "@/components/subject-radio";
 import IconInput from "@/components/icon-input";
 
-const formSchema = z.object({
+export const formSchema = z.object({
   sentence: z.string().min(1),
 });
 
@@ -50,7 +50,6 @@ const SubjectPage = () => {
 
   const subjectSubmit = () => {
     addPrompt({ subject: select.subject });
-    router.push("/style");
   };
 
   return (
@@ -73,7 +72,7 @@ const SubjectPage = () => {
               setSelect={setSelect}
               loading={isLoading}
             />
-            <Refresh onClick={() => console.log("123")} />
+            <Refresh onClick={() => thinkSubmit(form.watch())} />
           </>
         )}
       </div>
