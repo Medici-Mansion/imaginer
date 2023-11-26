@@ -1,3 +1,4 @@
+
 import { PropsWithChildren } from "react";
 
 import { NavList } from "@/types";
@@ -10,7 +11,6 @@ const NavigationList: NavList[] = [
   { title: "Style", href: "/style", active: false },
   { title: `ArtisticReference`, href: "/artisticreference", active: false },
   { title: "Composition", href: "/composition", active: false },
-  { title: "Mood", href: "/mood", active: false },
   { title: "Tone", href: "/tone", active: false },
 ];
 

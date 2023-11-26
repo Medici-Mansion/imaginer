@@ -12,10 +12,9 @@ const usePrompt = create(
     promptData: {
       style: '',
       subject: '',
-      mood: '',
       composition: '',
       tone: '',
-      artistic: '',
+      artisticreference: '',
     },
     addPrompt: (data) => {
       set((state) => ({

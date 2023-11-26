@@ -22,20 +22,21 @@ export interface ImageCardProps {
   id: number;
   selectId: number;
   setSelectId: Dispatch<SetStateAction<number>>;
+  value: string
 }
 
 export interface Images {
   id: number
   href: string
+  value: string
 }
 
 export interface PromptStoreItem {
   style: string
   subject: string
-  mood: string
   composition: string
   tone: string
-  artistic: string
+  artisticreference: string
 }
 
 export interface SubmitButtonProps extends HTMLAttributes<HTMLButtonElement> {

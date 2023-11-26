@@ -17,7 +17,7 @@ import SubjectRadio from "@/components/subject-radio";
 import IconInput from "@/components/icon-input";
 import { promptContext } from "@/components/provider/prompt-provider";
 
-const formSchema = z.object({
+export const formSchema = z.object({
   sentence: z.string().min(1),
 });
 
@@ -27,8 +27,8 @@ export interface Subject {
 }
 
 const SubjectPage = () => {
-  const router = useRouter();
   const { addPrompt, promptData } = usePrompt();
+  const router = useRouter();
   const { isLoading, setLoading } = useLoadingStore();
   const { subjects, setSubjects, input, changeInput } =
     useContext(promptContext);
@@ -98,14 +98,14 @@ const SubjectPage = () => {
               setSelect={setSelect}
               loading={isLoading}
             />
-            <Refresh onClick={() => console.log("123")} />
+            <Refresh onClick={() => thinkSubmit(form.watch())} />
           </>
         ) : null}
       </div>
       {visible ? (
         <div className="flex justify-end pt-12 pr-32">
           <SubmitButton
-            className="bg-[#5854FF] px-16"
+            className="bg-[#5854FF] px-16 text-white"
             onClick={() => router.push("/style")}
             disabled={!promptData.subject || isLoading}
           >

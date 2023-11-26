@@ -1,7 +1,9 @@
+"use client";
+
 import { LucideRotateCw } from "lucide-react";
 
 interface RefreshProps {
-  onClick: () => void;
+  onClick: () => Promise<void>;
 }
 
 const Refresh = ({ onClick }: RefreshProps) => {
@@ -11,6 +13,7 @@ const Refresh = ({ onClick }: RefreshProps) => {
         className="w-8 h-8 ring-1 p-1 rounded-full ring-white cursor-pointer"
         onClick={onClick}
       />
+      <div className="flex justify-between items-center shadow"></div>
     </div>
   );
 };
