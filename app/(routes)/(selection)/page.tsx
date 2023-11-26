@@ -17,7 +17,7 @@ import SubjectRadio from "@/components/subject-radio";
 import IconInput from "@/components/icon-input";
 import { promptContext } from "@/components/provider/prompt-provider";
 
-export const formSchema = z.object({
+const formSchema = z.object({
   sentence: z.string().min(1),
 });
 
@@ -59,9 +59,13 @@ const SubjectPage = () => {
   const getSubjects = useCallback(
     async (sentence: string) => {
       setLoading(true);
-      const response = await APIs.getSubjectList({ sentence });
-      if (response.ok) {
-        setSubjects(response.data);
+      try {
+        const response = await APIs.getSubjectList({ sentence });
+        if (response.ok) {
+          setSubjects(response.data);
+        }
+      } catch (error) {
+      } finally {
         setLoading(false);
       }
     },

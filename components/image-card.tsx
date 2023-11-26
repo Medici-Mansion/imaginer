@@ -7,6 +7,7 @@ import { replacePathname } from "@/lib/utils";
 import { ImageCardProps } from "@/types";
 import { usePathname } from "next/navigation";
 import usePrompt from "@/store";
+import { useEffect, useState } from "react";
 
 const ImageCard = ({
   href,
@@ -17,16 +18,23 @@ const ImageCard = ({
 }: ImageCardProps) => {
   const pathname = usePathname();
   const { addPrompt } = usePrompt();
+  const [loading, setLoading] = useState(true);
 
   const promptName = replacePathname(pathname);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
 
   return (
     <div className="flex flex-col items-center space-y-4">
       <Image
         className={cn(
           "rounded-3xl",
-          id === selectId ? "border-2 border-[#F9E06C]" : "opacity-50",
-          selectId === 0 ? "opacity-100" : ""
+          !loading && id === selectId
+            ? "border-2 border-[#F9E06C]"
+            : "opacity-50",
+          !loading && selectId < 0 ? "opacity-100" : ""
         )}
         src={href}
         width={200}

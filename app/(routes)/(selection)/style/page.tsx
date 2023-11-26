@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
 import { Images } from "@/types";
 
 import ImageCard from "@/components/image-card";
 import SubmitButton from "@/components/submit-button";
 import { useRouter } from "next/navigation";
+import usePrompt from "@/store";
+import { useMemo } from "react";
 
 const images: Images[] = [
   { id: 1, href: "/images/style1.png", value: "Anime" },
@@ -17,20 +18,26 @@ const images: Images[] = [
 
 const StylePage = () => {
   const router = useRouter();
-  const [selectId, setSelectId] = useState(0);
+  const { addPrompt, promptData } = usePrompt();
+
+  const selectedId = useMemo(
+    () => images.findIndex((item) => item.value === promptData.style),
+    [promptData.style]
+  );
+
   return (
     <div className="pt-28">
       <div className="text-center text-[40px]">
         What style of image would you like?{" "}
       </div>
       <div className="flex justify-evenly pt-16">
-        {images.map((img) => (
+        {images.map((img, index) => (
           <ImageCard
             key={img.id}
             href={img.href}
-            id={img.id}
-            selectId={selectId}
-            setSelectId={setSelectId}
+            id={index}
+            selectId={selectedId}
+            setSelectId={() => addPrompt({ style: img.value })}
             value={img.value}
           />
         ))}
