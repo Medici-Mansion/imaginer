@@ -27,8 +27,8 @@ export interface Subject {
 }
 
 const SubjectPage = () => {
-  const router = useRouter();
   const { addPrompt, promptData } = usePrompt();
+  const router = useRouter();
   const { isLoading, setLoading } = useLoadingStore();
   const { subjects, setSubjects, input, changeInput } =
     useContext(promptContext);
@@ -105,7 +105,7 @@ const SubjectPage = () => {
       {visible ? (
         <div className="flex justify-end pt-12 pr-32">
           <SubmitButton
-            className="bg-[#5854FF] px-16"
+            className="bg-[#5854FF] px-16 text-white"
             onClick={() => router.push("/style")}
             disabled={!promptData.subject || isLoading}
           >

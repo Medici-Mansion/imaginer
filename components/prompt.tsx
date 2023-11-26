@@ -7,12 +7,12 @@ const Prompt = () => {
   const pathname = usePathname();
   const prompt = usePrompt();
   const { promptData } = prompt || {};
-  const { subject, style, mood, composition, tone, artistic } =
+  const { subject, style, composition, tone, artisticreference } =
     promptData || {};
 
   return (
     <div className="pt-10">
-      {pathname !== "/" ? (
+      {/* {pathname !== "/" ? (
         <div className="flex gap-1">
           <div>A</div>
           <div>
@@ -27,7 +27,18 @@ const Prompt = () => {
             )}
           </div>
         </div>
-      ) : null}
+      ) : null} */}
+      {/* {pathname !== "/" && (
+        <div>
+          {`A ${composition ? composition : "composition"} , ${
+            style || "Style"
+          }-depiction of a ${subject || ""}, in ${
+            tone ? tone : "Tone"
+          }, reminiscent of ${
+            artisticreference ? artisticreference : "Artistic reference"
+          }`}
+        </div>
+      )} */}
     </div>
   );
 };
