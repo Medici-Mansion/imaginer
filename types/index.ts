@@ -1,7 +1,7 @@
 import { HTMLAttributes, Dispatch, SetStateAction } from "react";
 
 export interface FormData {
-  sentence: string
+  sentence: string;
 }
 
 export interface NavList {
@@ -14,32 +14,32 @@ export interface NavProps extends HTMLAttributes<HTMLAnchorElement> {
   href: string;
   title: string;
   pathname: string;
-  isLoading: boolean
+  isLoading: boolean;
 }
 
 export interface ImageCardProps {
   href: string;
   id: number;
   selectId: number;
-  setSelectId: Dispatch<SetStateAction<number>>;
-  value: string
+  setSelectId: (id: number) => void;
+  value: string;
 }
 
 export interface Images {
-  id: number
-  href: string
-  value: string
+  id: number;
+  href: string;
+  value: string;
 }
 
 export interface PromptStoreItem {
-  style: string
-  subject: string
-  composition: string
-  tone: string
-  artisticreference: string
+  style: string;
+  subject: string;
+  composition: string;
+  tone: string;
+  artisticreference: string;
 }
 
 export interface SubmitButtonProps extends HTMLAttributes<HTMLButtonElement> {
-  onClick: () => void
-  disabled: boolean
+  onClick: () => void;
+  disabled: boolean;
 }

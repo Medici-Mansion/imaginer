@@ -1,5 +1,6 @@
 "use client";
-import { PropsWithChildren, createContext, useState } from "react";
+import usePrompt from "@/store";
+import { PropsWithChildren, createContext } from "react";
 
 export const promptContext = createContext<{
   subjects: string[];
@@ -14,8 +15,8 @@ export const promptContext = createContext<{
 });
 
 export const PromptProvider = ({ children }: PropsWithChildren) => {
-  const [subjects, setSubjects] = useState<string[]>([]);
-  const [input, setInput] = useState("");
+  const { setSubjects, subjects, input, setInput } = usePrompt();
+
   const changeInput = (text: string) => {
     setInput(text);
   };

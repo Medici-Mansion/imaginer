@@ -1,28 +1,48 @@
 "use client";
 import MjImages from "@/components/mj-images";
-import { Button } from "@/components/ui/button";
-import { Form, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import useMj from "@/lib/hooks/useMj";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { makePrompt } from "@/lib/paser";
+import usePrompt from "@/store";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useMemo, useRef } from "react";
+
 import * as z from "zod";
 const schema = z.object({
   prompt: z.string().min(1),
 });
 
 const GeneragePage = () => {
+  const { promptData, clear } = usePrompt();
+  const router = useRouter();
+  const queue = useRef(new Map<"callback", () => void>());
+
   const { uri, isGenerating, progress, generateImage } = useMj();
-  const form = useForm<z.infer<typeof schema>>({
-    resolver: zodResolver(schema),
-    defaultValues: {
-      prompt: "",
-    },
-  });
-  const onValid = (values: z.infer<typeof schema>) => {
-    generateImage(values.prompt);
-  };
+
+  const parsedPrompt = useMemo(() => makePrompt(promptData), [promptData]);
+  const generateImageAction = useCallback((prompt?: string) => {
+    if (!prompt) return;
+    generateImage(prompt);
+  }, []);
   const isIdle = !isGenerating && !uri;
+
+  useEffect(() => {
+    if (!isGenerating) {
+      queue.current.clear();
+      queue.current.set("callback", () => {
+        clear();
+        generateImageAction(parsedPrompt);
+      });
+    }
+
+    requestIdleCallback(() => {
+      if (queue.current.size) {
+        const cb = queue.current.get("callback");
+        queue.current.clear();
+        cb?.();
+      }
+    });
+  }, []);
+
   return (
     <div>
       <div className="flex justify-center w-2/3 mx-auto py-4">
@@ -35,7 +55,7 @@ const GeneragePage = () => {
           }}
         />
       </div>
-      <Form {...form}>
+      {/* <Form {...form}>
         <form onSubmit={form.handleSubmit(onValid)} className="flex space-x-3">
           <FormField
             control={form.control}
@@ -53,7 +73,7 @@ const GeneragePage = () => {
           />
           <Button type="submit">Generate</Button>
         </form>
-      </Form>
+      </Form> */}
     </div>
   );
 };
