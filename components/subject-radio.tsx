@@ -1,5 +1,5 @@
+import { Subject } from "@/app/(routes)/(selection)/page";
 import { cn } from "@/lib/utils";
-import { Dispatch, SetStateAction, useState } from "react";
 
 interface SubjectProps {
   subjects: string[];
@@ -7,7 +7,7 @@ interface SubjectProps {
     subject: string;
     id: number;
   };
-  setSelect: Dispatch<SetStateAction<{ subject: string; id: number }>>;
+  setSelect: (subject: Subject) => void;
   loading: boolean;
 }
 
