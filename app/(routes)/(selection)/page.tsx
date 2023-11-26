@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useCallback, useContext, useMemo } from "react";
 import { useRouter } from "next/navigation";
 
 import usePrompt from "@/store";
@@ -15,44 +15,69 @@ import Refresh from "@/components/refresh";
 import SubmitButton from "@/components/submit-button";
 import SubjectRadio from "@/components/subject-radio";
 import IconInput from "@/components/icon-input";
+import { promptContext } from "@/components/provider/prompt-provider";
 
 const formSchema = z.object({
   sentence: z.string().min(1),
 });
 
+export interface Subject {
+  subject: string;
+  id: number;
+}
+
 const SubjectPage = () => {
   const router = useRouter();
   const { addPrompt, promptData } = usePrompt();
   const { isLoading, setLoading } = useLoadingStore();
-  const [visible, setVisible] = useState(false);
-  const [subjects, setSubjects] = useState<string[]>([]);
-  const [select, setSelect] = useState({
-    subject: "",
-    id: 0,
-  });
+  const { subjects, setSubjects, input, changeInput } =
+    useContext(promptContext);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      sentence: "",
+      sentence: input || "",
     },
   });
 
-  const thinkSubmit = async (values: z.infer<typeof formSchema>) => {
-    setLoading(true);
-    const response = await APIs.getSubjectList(values);
-    if (response.ok) {
-      setSubjects(response.data);
-      setVisible(true);
-      setLoading(false);
+  const select = useMemo(() => {
+    const selectedSubject = promptData.subject;
+    let result: Subject = { id: 0, subject: "" };
+    if (selectedSubject) {
+      subjects.some((item, index) => {
+        if (item === selectedSubject) {
+          result = {
+            id: index,
+            subject: item,
+          };
+        }
+      });
     }
+    return result;
+  }, [promptData.subject, subjects]);
+
+  const getSubjects = useCallback(
+    async (sentence: string) => {
+      setLoading(true);
+      const response = await APIs.getSubjectList({ sentence });
+      if (response.ok) {
+        setSubjects(response.data);
+        setLoading(false);
+      }
+    },
+    [setLoading, setSubjects]
+  );
+
+  const thinkSubmit = async (values: z.infer<typeof formSchema>) => {
+    changeInput(values.sentence);
+    await getSubjects(values.sentence);
   };
 
-  const subjectSubmit = () => {
-    addPrompt({ subject: select.subject });
-    router.push("/style");
+  const setSelect = (args: Subject) => {
+    addPrompt({ subject: args.subject });
   };
 
+  const visible = subjects.length > 0;
   return (
     <div>
       <Form {...form}>
@@ -65,7 +90,7 @@ const SubjectPage = () => {
         </form>
       </Form>
       <div className="w-[70%] m-auto">
-        {visible && (
+        {visible ? (
           <>
             <SubjectRadio
               subjects={subjects}
@@ -75,19 +100,19 @@ const SubjectPage = () => {
             />
             <Refresh onClick={() => console.log("123")} />
           </>
-        )}
+        ) : null}
       </div>
-      {visible && (
+      {visible ? (
         <div className="flex justify-end pt-12 pr-32">
           <SubmitButton
             className="bg-[#5854FF] px-16"
-            onClick={subjectSubmit}
-            disabled={!form.getValues().sentence || isLoading}
+            onClick={() => router.push("/style")}
+            disabled={!promptData.subject || isLoading}
           >
             {"Create"}
           </SubmitButton>
         </div>
-      )}
+      ) : null}
     </div>
   );
 };
