@@ -109,7 +109,7 @@ const SubjectPage = () => {
       {visible ? (
         <div className="flex justify-end pt-12 pr-32">
           <SubmitButton
-            className="bg-[#5854FF] px-16 text-white"
+            className="bg-activate px-16 text-white"
             onClick={() => router.push("/style")}
             disabled={!promptData.subject || isLoading}
           >

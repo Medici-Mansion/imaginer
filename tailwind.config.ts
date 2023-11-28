@@ -17,6 +17,8 @@ const config: Config = {
     },
     extend: {
       colors: {
+        activate: "hsl(var(--activate))",
+        deactivate: "hsl(var(--deactivate))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

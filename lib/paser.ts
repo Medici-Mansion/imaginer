@@ -22,7 +22,7 @@ export const isNumeric = (data: string): boolean => {
   return !isNaN(parseInt(data));
 };
 
-function capitalizeFirstLetter(text: string) {
+export function capitalizeFirstLetter(text: string) {
   return text
     .split(" ") // Split the string into an array of words
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1)) // Capitalize the first letter of each word

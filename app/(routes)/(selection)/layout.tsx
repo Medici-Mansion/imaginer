@@ -4,8 +4,7 @@ import { NavList } from "@/types";
 
 import Navigation from "@/components/navigation";
 import Prompt from "@/components/prompt";
-import { PromptProvider } from "@/components/provider/prompt-provider";
-
+import AuthProvider from "@/components/provider/auth-provider";
 const NavigationList: NavList[] = [
   { title: "Subject", href: "/", active: true },
   { title: "Style", href: "/style", active: false },
@@ -16,13 +15,12 @@ const NavigationList: NavList[] = [
 
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
-    <PromptProvider>
-      <div className="h-full w-[80%] m-auto">
-        <Navigation navList={NavigationList} />
-        {children}
-        <Prompt />
-      </div>
-    </PromptProvider>
+    <div className="h-full w-[80%] m-auto">
+      <Navigation navList={NavigationList} />
+      {children}
+      <Prompt />
+      <AuthProvider />
+    </div>
   );
 };
 
