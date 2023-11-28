@@ -1,4 +1,4 @@
-import { Subject } from "@/app/(routes)/(selection)/page";
+import { Subject } from "@/app/(routes)/(subject)/page";
 import { cn } from "@/lib/utils";
 
 interface SubjectProps {
@@ -24,7 +24,7 @@ const SubjectRadio = ({
           key={index}
           className={cn(
             "flex gap-2 mt-5 bg-[#232323] px-4 py-3 rounded-sm cursor-pointer",
-            select.id === index ? "text-white bg-[#5854FF]" : "",
+            select.id === index ? "text-white bg-activate" : "",
             loading && "opacity-50"
           )}
           onClick={() => {

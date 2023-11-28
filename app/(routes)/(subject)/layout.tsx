@@ -3,8 +3,6 @@ import { PropsWithChildren } from "react";
 import { NavList } from "@/types";
 
 import Navigation from "@/components/navigation";
-import Prompt from "@/components/prompt";
-import AuthProvider from "@/components/provider/auth-provider";
 const NavigationList: NavList[] = [
   { title: "Subject", href: "/", active: true },
   { title: "Style", href: "/style", active: false },
@@ -18,8 +16,6 @@ const RootLayout = ({ children }: PropsWithChildren) => {
     <div className="h-full w-[1440px] m-auto">
       <Navigation navList={NavigationList} />
       {children}
-      <Prompt />
-      <AuthProvider />
     </div>
   );
 };

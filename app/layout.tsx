@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { PropsWithChildren } from "react";
+import { PromptProvider } from "@/components/provider/prompt-provider";
 
 export const metadata: Metadata = {
   title: "Imaginer",
@@ -10,7 +11,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="ko" placeholder="imaginer" className="dark">
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <PromptProvider>{children}</PromptProvider>
+      </body>
     </html>
   );
 }
