@@ -13,7 +13,7 @@ const NavigationList: NavList[] = [
 
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
-    <div className="h-full w-[80%] m-auto">
+    <div className="h-full w-[1440px] m-auto">
       <Navigation navList={NavigationList} />
       {children}
     </div>
