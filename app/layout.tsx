@@ -10,7 +10,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="ko" placeholder="imaginer" className="dark">
+    <html
+      lang="ko"
+      placeholder="imaginer"
+      className="dark w-[1440px] h-[100dvh] mx-auto"
+    >
       <body suppressHydrationWarning>
         <PromptProvider>{children}</PromptProvider>
       </body>

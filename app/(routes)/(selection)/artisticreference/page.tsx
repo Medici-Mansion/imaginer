@@ -5,6 +5,8 @@ import { useMemo } from "react";
 import { Images } from "@/types";
 import ImageCard from "@/components/image-card";
 import usePrompt from "@/store";
+import SubmitButton from "@/components/submit-button";
+import { useRouter } from "next/navigation";
 
 const images: Images[] = [
   { id: 1, href: "/images/artistic1.png", value: "Pixar" },
@@ -16,14 +18,14 @@ const images: Images[] = [
 
 const ArtisticPage = () => {
   const { addPrompt, promptData } = usePrompt();
-
+  const router = useRouter();
   const selectedId = useMemo(
     () =>
       images.findIndex((item) => item.value === promptData.artisticreference),
     [promptData.artisticreference]
   );
   return (
-    <div className="pt-28">
+    <div>
       <div className="text-center text-[40px]">
         What artistic reference would you like?{" "}
       </div>
@@ -40,6 +42,17 @@ const ArtisticPage = () => {
             value={img.value}
           />
         ))}
+      </div>
+      <div className="flex justify-end pt-10">
+        <SubmitButton
+          onClick={() => {
+            router.push("/composition");
+          }}
+          disabled={false}
+          className="bg-[#5854FF] px-16 text-white"
+        >
+          Create
+        </SubmitButton>
       </div>
     </div>
   );

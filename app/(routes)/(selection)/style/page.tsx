@@ -26,7 +26,7 @@ const StylePage = () => {
   );
 
   return (
-    <div className="pt-28">
+    <>
       <div className="text-center text-[40px]">
         What style of image would you like?{" "}
       </div>
@@ -53,7 +53,7 @@ const StylePage = () => {
           Create
         </SubmitButton>
       </div>
-    </div>
+    </>
   );
 };
 

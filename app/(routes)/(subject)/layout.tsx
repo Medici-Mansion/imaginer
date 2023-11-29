@@ -13,9 +13,9 @@ const NavigationList: NavList[] = [
 
 const RootLayout = ({ children }: PropsWithChildren) => {
   return (
-    <div className="h-full w-[1440px] m-auto">
+    <div className="m-auto flex flex-col justify-center">
       <Navigation navList={NavigationList} />
-      {children}
+      <main className="flex-[3] flex flex-col justify-center">{children}</main>
     </div>
   );
 };

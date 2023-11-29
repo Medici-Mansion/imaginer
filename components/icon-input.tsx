@@ -26,7 +26,7 @@ const IconInput = ({ form, label, isLoading }: IconInputProps) => {
       control={form.control}
       name="sentence"
       render={({ field }) => (
-        <FormItem className="pt-28 space-y-5">
+        <FormItem className="space-y-5">
           <FormLabel className="text-bold flex justify-center text-[#FFF] text-[40px]">
             {label}
           </FormLabel>

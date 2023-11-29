@@ -25,7 +25,7 @@ const CompositionPage = () => {
     [promptData.composition]
   );
   return (
-    <div className="pt-28">
+    <>
       <div className="text-center text-[40px]">
         What composition of image would you like?{" "}
       </div>
@@ -52,7 +52,7 @@ const CompositionPage = () => {
           Create
         </SubmitButton>
       </div>
-    </div>
+    </>
   );
 };
 

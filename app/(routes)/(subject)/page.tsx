@@ -83,9 +83,9 @@ const SubjectPage = () => {
 
   const visible = subjects.length > 0;
   return (
-    <div>
+    <div className="py-6">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(thinkSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(thinkSubmit)}>
           <IconInput
             form={form}
             label={"What are you thinking of?"}

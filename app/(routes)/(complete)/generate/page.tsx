@@ -23,7 +23,7 @@ const GeneragePage = () => {
   const generateImageAction = useCallback(
     (prompt?: string) => {
       if (!prompt) return;
-      generateImage(prompt, () => clear());
+      generateImage(prompt);
     },
     [clear, generateImage]
   );
