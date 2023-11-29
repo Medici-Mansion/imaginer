@@ -49,7 +49,7 @@ const GeneragePage = () => {
   return image && key ? (
     <motion.div
       layoutId={key}
-      className="relative border-[#F9E06C]  overflow-hidden aspect-square rounded-3xl"
+      className="relative border-[#F9E06C] border-4 overflow-hidden aspect-square rounded-3xl"
     >
       <Image src={image} alt="result" width={1000} height={1000} />
     </motion.div>

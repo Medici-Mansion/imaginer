@@ -8,7 +8,7 @@ import AuthProvider from "@/components/provider/auth-provider";
 const NavigationList: NavList[] = [
   { title: "Subject", href: "/", active: true },
   { title: "Style", href: "/style", active: false },
-  { title: `ArtisticReference`, href: "/artisticreference", active: false },
+  { title: `Artistic Reference`, href: "/artisticreference", active: false },
   { title: "Composition", href: "/composition", active: false },
   { title: "Tone", href: "/tone", active: false },
 ];

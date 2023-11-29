@@ -2,7 +2,7 @@
 import { isNumeric } from "@/lib/paser";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 import { motion } from "framer-motion";
@@ -159,4 +159,4 @@ const MjImages = ({
   );
 };
 
-export default MjImages;
+export default React.memo(MjImages);
