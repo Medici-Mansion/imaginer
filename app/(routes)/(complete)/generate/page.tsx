@@ -1,35 +1,38 @@
 "use client";
 import MjImages from "@/components/mj-images";
+import Prompt from "@/components/prompt";
 import useMj from "@/lib/hooks/useMj";
 import { makePrompt } from "@/lib/paser";
 import usePrompt from "@/store";
-import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef } from "react";
-
-import * as z from "zod";
-const schema = z.object({
-  prompt: z.string().min(1),
-});
+import { motion } from "framer-motion";
 
 const GeneragePage = () => {
   const { promptData, clear } = usePrompt();
-  const router = useRouter();
   const queue = useRef(new Map<"callback", () => void>());
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const image = searchParams.get("image");
+  const key = searchParams.get("key");
 
-  const { uri, isGenerating, progress, generateImage } = useMj();
+  const { uri, isGenerating, progress, generateImage, isDone } = useMj();
 
   const parsedPrompt = useMemo(() => makePrompt(promptData), [promptData]);
-  const generateImageAction = useCallback((prompt?: string) => {
-    if (!prompt) return;
-    generateImage(prompt);
-  }, []);
+  const generateImageAction = useCallback(
+    (prompt?: string) => {
+      if (!prompt) return;
+      generateImage(prompt, () => clear());
+    },
+    [clear, generateImage]
+  );
   const isIdle = !isGenerating && !uri;
 
   useEffect(() => {
     if (!isGenerating) {
       queue.current.clear();
       queue.current.set("callback", () => {
-        clear();
         generateImageAction(parsedPrompt);
       });
     }
@@ -43,38 +46,30 @@ const GeneragePage = () => {
     });
   }, []);
 
-  return (
-    <div>
-      <div className="flex justify-center w-2/3 mx-auto py-4">
+  return image && key ? (
+    <motion.div
+      layoutId={key}
+      className="relative border-[#F9E06C]  overflow-hidden aspect-square rounded-3xl"
+    >
+      <Image src={image} alt="result" width={1000} height={1000} />
+    </motion.div>
+  ) : (
+    <>
+      <Prompt cache />
+      <div className="flex justify-center w-2/3 mx-auto py-4 pt-10">
         <MjImages
           isIdle={isIdle}
           uri={uri}
-          isDone={progress === 100}
-          onImageSelected={(imgaeUrl) => {
-            console.log(imgaeUrl);
+          isDone={isDone}
+          onImageSelected={({ image, key }) => {
+            const params = new URLSearchParams();
+            params.set("image", image);
+            params.set("key", key + "");
+            router.push("/generate?" + params.toString());
           }}
         />
       </div>
-      {/* <Form {...form}>
-        <form onSubmit={form.handleSubmit(onValid)} className="flex space-x-3">
-          <FormField
-            control={form.control}
-            name="prompt"
-            render={({ field }) => (
-              <FormItem className="grow">
-                <Input
-                  disabled={!isIdle}
-                  {...field}
-                  placeholder="What is your imagination?"
-                />
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit">Generate</Button>
-        </form>
-      </Form> */}
-    </div>
+    </>
   );
 };
 

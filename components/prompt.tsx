@@ -1,11 +1,24 @@
 "use client";
 import usePrompt from "@/store";
 import BoxText from "./box-text";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  HTMLAttributes,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { cn } from "@/lib/utils";
 
-const Prompt = () => {
+interface PromptProps extends HTMLAttributes<HTMLDivElement> {
+  cache?: boolean;
+}
+const Prompt = ({ cache = false, ...props }: PromptProps) => {
   const prompt = usePrompt();
-  const { promptData } = prompt || {};
+  const cachePrompt = useRef(prompt);
+  const { promptData } = cache ? cachePrompt.current : prompt || {};
   const { subject, style, composition, tone, artisticreference } =
     promptData || {};
   const boxRef = useRef<HTMLDivElement>(null);
@@ -67,23 +80,26 @@ const Prompt = () => {
     setMounted(true);
     if (boxRef.current) {
       boxRef.current.addEventListener("resize", resizeHandler);
+      window.addEventListener("resize", resizeHandler);
       return () => {
         boxRef.current?.removeEventListener("resize", resizeHandler);
+        window.removeEventListener("resize", resizeHandler);
       };
     }
   }, [resizeHandler]);
 
   useEffect(() => {
-    resizeHandler();
+    requestIdleCallback(resizeHandler);
   }, [promptData]);
 
   return (
-    <div className="pt-10 space-x-3" ref={boxRef}>
+    <div {...props} className={cn("pt-10", props.className)} ref={boxRef}>
       {Object.entries(boxItem).map(([key, value]) => (
         <BoxText
           key={key}
           bounding={bounding}
           label={key}
+          pre={value.pre}
           sub={value.sub}
           text={value.text}
           description={value.description}

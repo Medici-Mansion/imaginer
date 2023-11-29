@@ -1,7 +1,6 @@
 import { PropsWithChildren } from "react";
 
 import { NavList } from "@/types";
-import Prompt from "@/components/prompt";
 import { PromptProvider } from "@/components/provider/prompt-provider";
 
 const NavigationList: NavList[] = [
@@ -14,12 +13,9 @@ const NavigationList: NavList[] = [
 
 const RootLayout = ({ children, ...rest }: PropsWithChildren) => {
   return (
-    <div className="h-[100dvh] w-[1440px] m-auto">
-      <PromptProvider>
-        {children}
-        <Prompt />
-      </PromptProvider>
-    </div>
+    <main className="h-[100dvh] w-[1440px] m-auto flex flex-col justify-center items-center">
+      <PromptProvider>{children}</PromptProvider>
+    </main>
   );
 };
 

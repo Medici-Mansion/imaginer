@@ -18,7 +18,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
     <div className="h-full w-[1440px] m-auto">
       <Navigation navList={NavigationList} />
       {children}
-      <Prompt />
+      <Prompt className="absolute bottom-24 mx-auto px-10 w-[1440px]" />
       <AuthProvider />
     </div>
   );
