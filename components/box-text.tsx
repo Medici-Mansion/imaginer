@@ -3,7 +3,7 @@ import { capitalizeFirstLetter } from "@/lib/paser";
 import { cn } from "@/lib/utils";
 import { HTMLMotionProps, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -29,32 +29,38 @@ const BoxText = ({
   ...rest
 }: BoxTextProps) => {
   const { className, pre, ...extractPropsByClassName } = rest;
-  const [direction, setDirection] = useState<"top" | "bottom">("top");
+  const [direction, setDirection] = useState<{
+    direction: "top" | "bottom";
+    left: number;
+  }>({ direction: "top", left: 0 });
   const boxRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  useEffect(() => {
+  const calcResize = useCallback(() => {
     if (boxRef.current) {
       const childBounding = boxRef.current.getBoundingClientRect();
       const { bottom, height } = bounding;
+      const wrapperBounding = wrapperRef.current?.getBoundingClientRect();
+      const left = wrapperBounding
+        ? wrapperBounding.left - childBounding.left
+        : 0;
       if (height + bottom >= childBounding.y) {
-        setDirection("top");
+        setDirection({ direction: "top", left: left || 0 });
       } else {
-        setDirection("bottom");
+        setDirection({ direction: "bottom", left: 0 });
       }
     }
   }, [bounding]);
 
+  useEffect(() => {
+    calcResize();
+  }, [calcResize]);
+
   return (
-    <div className={cn("inline text-3xl font-medium")} ref={boxRef}>
-      {pre}
-      <div
-        className={cn(
-          "relative inline-flex text-[#F9E06C]",
-          pre && "ml-2"
-          // sub && "mr-2"
-        )}
-      >
+    <div className={cn("inline text-3xl font-medium")} ref={wrapperRef}>
+      {pre ? <span>{pre}&nbsp;</span> : ""}
+      <div ref={boxRef} className={cn("inline-flex relative text-[#F9E06C]")}>
         <TooltipProvider delayDuration={200}>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -76,13 +82,16 @@ const BoxText = ({
                 <motion.div
                   layoutId={label}
                   className={cn(
-                    "block text-md rounded-sm px-5 py-1 leading-9 absolute  left-0 text-xl text-white",
-                    direction === "top" ? "-top-full" : "top-full",
+                    "block text-md rounded-sm px-5 py-1 leading-9 absolute  text-xl text-white",
+                    direction.direction === "top" ? "-top-full" : "top-full",
                     pathname.replace("/", "") === label
                       ? "bg-activate"
                       : "bg-deactivate",
                     className
                   )}
+                  style={{
+                    left: `${direction.left}px`,
+                  }}
                   initial="initial"
                   {...extractPropsByClassName}
                 >
@@ -91,16 +100,15 @@ const BoxText = ({
               )}
             </TooltipTrigger>
             {description && (
-              <TooltipContent side={direction}>
+              <TooltipContent side={direction.direction}>
                 <p>{description}</p>
               </TooltipContent>
             )}
           </Tooltip>
         </TooltipProvider>
-
         {text}
       </div>
-      {sub}
+      {sub}&nbsp;
     </div>
   );
 };

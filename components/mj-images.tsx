@@ -2,16 +2,17 @@
 import { isNumeric } from "@/lib/paser";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useCallback, useEffect, useMemo, useRef } from "react";
+import React, { useCallback, useEffect, useMemo, useRef } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
+import { motion } from "framer-motion";
 interface MjImagesProps {
   uri?: string;
   imageCount?: number;
   isIdle: boolean;
   selected?: boolean;
   isDone: boolean;
-  onImageSelected?: (imageUrl: string) => void;
+  onImageSelected?: (imageArs: { image: string; key: string }) => void;
 }
 
 const CANVAS_COUNT = 4;
@@ -23,7 +24,6 @@ const mjSchama = z.object({
 const MjImages = ({
   isIdle,
   uri,
-  selected,
   isDone,
   onImageSelected,
   imageCount = CANVAS_COUNT,
@@ -122,7 +122,11 @@ const MjImages = ({
                       canvasesRef.current[index]?.toBlob((blob) => {
                         if (blob) {
                           const blobUrl = URL.createObjectURL(blob);
-                          onImageSelected && onImageSelected(blobUrl);
+                          onImageSelected &&
+                            onImageSelected({
+                              image: blobUrl,
+                              key: index + "image",
+                            });
                         }
                       });
                     }}
@@ -131,7 +135,8 @@ const MjImages = ({
                     htmlFor={ids[index]}
                     className="absolute w-full h-full z-20"
                   />
-                  <canvas
+                  <motion.canvas
+                    layoutId={index + "image"}
                     ref={(element) => {
                       canvasesRef.current[index] = element;
                     }}
@@ -154,4 +159,4 @@ const MjImages = ({
   );
 };
 
-export default MjImages;
+export default React.memo(MjImages);

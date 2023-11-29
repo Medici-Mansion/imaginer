@@ -37,11 +37,13 @@ const getMjStream = async (prompt: string) => {
 interface MJData {
   uri: string;
   progress: number;
+  isDone: boolean;
 }
 
 const useMj = () => {
   const [mjData, setMjData] = useState<MJData>({
     uri: "",
+    isDone: false,
     progress: 0,
   });
   const [isGenerating, setIsGenerating] = useState(false);
@@ -49,10 +51,11 @@ const useMj = () => {
   const clear = () => {
     setMjData({
       uri: "",
+      isDone: false,
       progress: 0,
     });
   };
-  const generateImage = async (prompt: string) => {
+  const generateImage = async (prompt: string, cb?: () => void) => {
     clear();
     setIsGenerating(true);
     let progress = 0;
@@ -64,14 +67,17 @@ const useMj = () => {
           if (done) break;
           const result = new TextDecoder().decode(value);
           const response = streamTextToJson<MjResponse>(result);
+          let isDone = mjData.isDone;
           if (response.data?.progress) {
             const newProgress = response.data?.progress.replace("%", "");
             if (isNumeric(newProgress)) {
               progress = parseInt(newProgress);
             } else {
               progress = 100;
+              cb?.();
+              isDone = true;
             }
-            setMjData({ progress, uri: response.data.uri });
+            setMjData({ progress, uri: response.data.uri, isDone });
           }
         }
       } catch (error) {
@@ -84,6 +90,7 @@ const useMj = () => {
   return {
     uri: mjData.uri,
     progress: mjData.progress,
+    isDone: mjData.isDone,
     isGenerating,
     generateImage,
     clear,
