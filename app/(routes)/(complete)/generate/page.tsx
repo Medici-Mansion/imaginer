@@ -65,8 +65,9 @@ const GeneragePage = () => {
         <div className="flex justify-end pt-10">
           <SubmitButton
             onClick={() => {
-              router.push("/");
               clear();
+              router.refresh();
+              router.replace("/");
             }}
             disabled={false}
             className="bg-[#5854FF] px-16 text-white"

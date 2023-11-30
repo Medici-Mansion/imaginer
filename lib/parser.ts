@@ -29,7 +29,7 @@ export function capitalizeFirstLetter(text: string) {
     .join(" "); // Join the words back into a single string
 }
 
-export const makePrompt = (storeItem: unknown) => {
+export const makePrompt = (storeItem: PromptStoreItem) => {
   const KEY_DATA: { [key in string]: (text: string) => string } = {
     composition: (text) => `A ${capitalizeFirstLetter(text)}`,
     style: (style: string) =>
@@ -41,15 +41,22 @@ export const makePrompt = (storeItem: unknown) => {
       `reminiscent of ${capitalizeFirstLetter(text)}`,
   };
   let result = "";
+  const orderedPromptKey: (keyof PromptStoreItem)[] = [
+    "composition",
+    "style",
+    "subject",
+    "mood",
+    "tone",
+    "artisticreference",
+  ];
   const maxLength = Object.keys(KEY_DATA).length - 1;
-  Object.entries(storeItem as { [key in keyof PromptStoreItem]: string }).map(
-    ([key, value], index) => {
-      if (value) {
-        const parsedText = KEY_DATA[key]?.(value);
-        result += parsedText + (index !== maxLength ? ", " : "");
-      }
+  orderedPromptKey.map((key, index) => {
+    const value = storeItem[key];
+    if (value) {
+      const parsedText = KEY_DATA[key]?.(value);
+      result += parsedText + (index !== maxLength ? ", " : "");
     }
-  );
+  });
 
   return result;
 };

@@ -22,7 +22,9 @@ const AuthProvider = () => {
     } as any;
   }, []);
 
-  if (!subject) return redirect("/");
+  useEffect(() => {
+    if (!subject) redirect("/");
+  }, [subject]);
   return <></>;
 };
 

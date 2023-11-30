@@ -99,7 +99,7 @@ const MjImages = ({
     <>
       {isIdle || !uri ? (
         <div className="w-full aspect-square flex justify-center items-center">
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-foreground via-secondary-foreground to-primary-foreground inline-block text-8xl py-2">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-foreground via-secondary-foreground to-primary-foreground inline-block text-8xl py-2 animate-pulse">
             Imaginer
           </span>
         </div>
