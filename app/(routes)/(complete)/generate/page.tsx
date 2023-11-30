@@ -1,7 +1,7 @@
 "use client";
 import MjImages from "@/components/mj-images";
 import useMj from "@/lib/hooks/useMj";
-import { makePrompt } from "@/lib/paser";
+import { makePrompt } from "@/lib/parser";
 import usePrompt from "@/store";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";

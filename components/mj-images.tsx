@@ -1,5 +1,5 @@
 "use client";
-import { isNumeric } from "@/lib/paser";
+import { isNumeric } from "@/lib/parser";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useCallback, useEffect, useMemo, useRef } from "react";
