@@ -21,8 +21,8 @@ const Nav = ({ href, title, pathname, isLoading, ...rest }: NavProps) => {
           href={href}
           key={title}
           className={cn(
-            "bg-[#110F19] w-[180px] border-2 border-[#292730] rounded-md py-3 text-center cursor-pointer",
-            pathname === href ? "border-[#5854FF]" : "",
+            "bg-[#110F19] w-[180px] border-2 border-[#292730] rounded-md py-3 text-center cursor-pointer duration-300",
+            pathname === href ? "border-[#F9E06C]" : "",
             rest.className
           )}
           {...rest}

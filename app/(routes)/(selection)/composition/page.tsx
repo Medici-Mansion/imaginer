@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { Images } from "@/types";
 import ImageCard from "@/components/image-card";
@@ -25,7 +25,7 @@ const CompositionPage = () => {
     [promptData.composition]
   );
   return (
-    <div className="pt-28">
+    <>
       <div className="text-center text-[40px]">
         What composition of image would you like?{" "}
       </div>
@@ -44,7 +44,7 @@ const CompositionPage = () => {
       <div className="flex justify-end pt-10">
         <SubmitButton
           onClick={() => {
-            router.push("/generate");
+            router.push("/mood");
           }}
           disabled={false}
           className="bg-[#5854FF] px-16 text-white"
@@ -52,7 +52,7 @@ const CompositionPage = () => {
           Create
         </SubmitButton>
       </div>
-    </div>
+    </>
   );
 };
 

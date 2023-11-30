@@ -36,6 +36,7 @@ export interface PromptStoreItem {
   subject: string;
   composition: string;
   tone: string;
+  mood: string;
   artisticreference: string;
 }
 

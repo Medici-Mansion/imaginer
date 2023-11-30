@@ -1,34 +1,32 @@
 "use client";
 
-import { Images } from "@/types";
-
-import ImageCard from "@/components/image-card";
-import SubmitButton from "@/components/submit-button";
-import { useRouter } from "next/navigation";
-import usePrompt from "@/store";
 import { useMemo } from "react";
 
+import { Images } from "@/types";
+import ImageCard from "@/components/image-card";
+import usePrompt from "@/store";
+import SubmitButton from "@/components/submit-button";
+import { useRouter } from "next/navigation";
+
 const images: Images[] = [
-  { id: 1, href: "/images/style1.png", value: "Anime" },
-  { id: 2, href: "/images/style2.png", value: "Hyper Realistic" },
-  { id: 3, href: "/images/style3.png", value: "Sci-fi" },
-  { id: 4, href: "/images/style4.png", value: "Photo" },
-  { id: 5, href: "/images/style5.png", value: "Painting" },
+  { id: 1, href: "/images/artistic1.png", value: "Blue" },
+  { id: 2, href: "/images/artistic2.png", value: "Radiant bright" },
+  { id: 3, href: "/images/artistic3.png", value: "Winter cold" },
+  { id: 4, href: "/images/artistic4.png", value: "Pastel" },
+  { id: 5, href: "/images/artistic5.png", value: "Spring" },
 ];
 
-const StylePage = () => {
-  const router = useRouter();
+const ArtisticPage = () => {
   const { addPrompt, promptData } = usePrompt();
-
+  const router = useRouter();
   const selectedId = useMemo(
-    () => images.findIndex((item) => item.value === promptData.style),
-    [promptData.style]
+    () => images.findIndex((item) => item.value === promptData.tone),
+    [promptData.tone]
   );
-
   return (
-    <>
+    <div>
       <div className="text-center text-[40px]">
-        What style of image would you like?{" "}
+        What tone of image would you like?
       </div>
       <div className="flex justify-evenly pt-16">
         {images.map((img, index) => (
@@ -37,7 +35,7 @@ const StylePage = () => {
             href={img.href}
             id={index}
             selectId={selectedId}
-            setSelectId={() => addPrompt({ style: img.value })}
+            setSelectId={(id) => addPrompt({ tone: images[id].value })}
             value={img.value}
           />
         ))}
@@ -45,7 +43,7 @@ const StylePage = () => {
       <div className="flex justify-end pt-10">
         <SubmitButton
           onClick={() => {
-            router.push("/artisticreference");
+            router.push("/generate");
           }}
           disabled={false}
           className="bg-[#5854FF] px-16 text-white"
@@ -53,8 +51,8 @@ const StylePage = () => {
           Create
         </SubmitButton>
       </div>
-    </>
+    </div>
   );
 };
 
-export default StylePage;
+export default ArtisticPage;

@@ -1,21 +1,17 @@
 import { PropsWithChildren } from "react";
+import AuthProvider from "@/components/provider/auth-provider";
+import Prompt from "@/components/prompt";
 
-import { NavList } from "@/types";
-import { PromptProvider } from "@/components/provider/prompt-provider";
-
-const NavigationList: NavList[] = [
-  { title: "Subject", href: "/", active: true },
-  { title: "Style", href: "/style", active: false },
-  { title: `ArtisticReference`, href: "/artisticreference", active: false },
-  { title: "Composition", href: "/composition", active: false },
-  { title: "Tone", href: "/tone", active: false },
-];
-
-const RootLayout = ({ children, ...rest }: PropsWithChildren) => {
+const RootLayout = ({ children }: PropsWithChildren) => {
   return (
-    <main className="h-[100dvh] w-[1440px] m-auto flex flex-col justify-center items-center">
-      <PromptProvider>{children}</PromptProvider>
-    </main>
+    <div className="grow flex flex-col">
+      <Prompt
+        cache
+        className="py-5 mx-auto flex-[0.5] flex items-center w-3/4"
+      />
+      <main className="flex-[3] flex flex-col justify-center">{children}</main>
+      <AuthProvider />
+    </div>
   );
 };
 
