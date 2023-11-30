@@ -11,7 +11,7 @@ const Navigation = ({ navList }: { navList: NavList[] }) => {
   const pathname = usePathname();
 
   return (
-    <div className="flex items-center justify-center gap-x-20 pt-10">
+    <div className="flex items-center justify-center gap-x-10 py-10">
       {navList.map((item) => (
         <Nav
           key={item.title}

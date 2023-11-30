@@ -10,8 +10,9 @@ import {
   useState,
 } from "react";
 import { cn } from "@/lib/utils";
+import { HTMLMotionProps, motion } from "framer-motion";
 
-interface PromptProps extends HTMLAttributes<HTMLDivElement> {
+interface PromptProps extends HTMLMotionProps<"div"> {
   cache?: boolean;
 }
 const Prompt = ({ cache = false, ...props }: PromptProps) => {
@@ -49,7 +50,7 @@ const Prompt = ({ cache = false, ...props }: PromptProps) => {
       },
       style: {
         text: style,
-        sub: "-depliction of ",
+        sub: "-depliction of",
         pre: "",
       },
       subject: {
@@ -59,8 +60,8 @@ const Prompt = ({ cache = false, ...props }: PromptProps) => {
       },
       mood: {
         text: mood,
-        sub: "",
-        pre: "in ",
+        sub: " mood in",
+        pre: "",
       },
       tone: {
         text: tone,
@@ -74,7 +75,7 @@ const Prompt = ({ cache = false, ...props }: PromptProps) => {
       },
     };
     return boxes;
-  }, [artisticreference, composition, mounted, style, subject, tone]);
+  }, [artisticreference, composition, mood, mounted, style, subject, tone]);
 
   const resizeHandler = useCallback(() => {
     if (boxRef.current) {
@@ -96,11 +97,15 @@ const Prompt = ({ cache = false, ...props }: PromptProps) => {
   }, [resizeHandler]);
 
   useEffect(() => {
-    requestIdleCallback(resizeHandler);
+    setTimeout(() => resizeHandler(), 500);
   }, [promptData]);
 
   return (
-    <div {...props} className={cn("pt-10", props.className)}>
+    <motion.div
+      layoutId="prompt"
+      {...props}
+      className={cn("pt-10", props.className)}
+    >
       <div ref={boxRef}>
         {Object.entries(boxItem).map(([key, value]) => (
           <BoxText
@@ -114,7 +119,7 @@ const Prompt = ({ cache = false, ...props }: PromptProps) => {
           />
         ))}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

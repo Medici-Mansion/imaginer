@@ -9,25 +9,24 @@ import SubmitButton from "@/components/submit-button";
 import { useRouter } from "next/navigation";
 
 const images: Images[] = [
-  { id: 1, href: "/images/composition1.png", value: "Close-up" },
-  { id: 2, href: "/images/composition2.png", value: "Medium Shot" },
-  { id: 3, href: "/images/composition3.png", value: "Long Shot" },
-  { id: 4, href: "/images/composition4.png", value: "Low Angle" },
-  { id: 5, href: "/images/composition5.png", value: "Side view" },
+  { id: 1, href: "/images/artistic1.png", value: "Terror" },
+  { id: 2, href: "/images/artistic2.png", value: "Colorful" },
+  { id: 3, href: "/images/artistic3.png", value: "Light" },
+  { id: 4, href: "/images/artistic4.png", value: "Muted" },
+  { id: 5, href: "/images/artistic5.png", value: "Gloomy" },
 ];
 
-const CompositionPage = () => {
+const ArtisticPage = () => {
   const { addPrompt, promptData } = usePrompt();
   const router = useRouter();
-
   const selectedId = useMemo(
-    () => images.findIndex((item) => item.value === promptData.composition),
-    [promptData.composition]
+    () => images.findIndex((item) => item.value === promptData.mood),
+    [promptData.mood]
   );
   return (
-    <>
+    <div>
       <div className="text-center text-[40px]">
-        What composition of image would you like?{" "}
+        What mood of image would you like?
       </div>
       <div className="flex justify-evenly pt-16">
         {images.map((img, index) => (
@@ -36,7 +35,7 @@ const CompositionPage = () => {
             href={img.href}
             id={index}
             selectId={selectedId}
-            setSelectId={(id) => addPrompt({ composition: images[id].value })}
+            setSelectId={(id) => addPrompt({ mood: images[id].value })}
             value={img.value}
           />
         ))}
@@ -44,7 +43,7 @@ const CompositionPage = () => {
       <div className="flex justify-end pt-10">
         <SubmitButton
           onClick={() => {
-            router.push("/mood");
+            router.push("/tone");
           }}
           disabled={false}
           className="bg-[#5854FF] px-16 text-white"
@@ -52,8 +51,8 @@ const CompositionPage = () => {
           Create
         </SubmitButton>
       </div>
-    </>
+    </div>
   );
 };
 
-export default CompositionPage;
+export default ArtisticPage;

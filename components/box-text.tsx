@@ -41,22 +41,23 @@ const BoxText = ({
   }>({ direction: "top", left: 0 });
   const cardRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const preRef = useRef<HTMLSpanElement>(null);
+  const boxRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   const calcResize = useCallback(() => {
-    if (cardRef.current && wrapperRef.current) {
+    if (cardRef.current && boxRef.current) {
       const childBounding = cardRef.current.getBoundingClientRect();
-
-      const wrapperBounding = wrapperRef.current?.getBoundingClientRect();
-      if (bounding.top + childBounding.height < wrapperBounding?.top) {
+      const preBounding = preRef.current?.getBoundingClientRect();
+      if (
+        bounding.height > childBounding.height &&
+        bounding.top + childBounding.height <= childBounding?.top
+      ) {
         setDirection({ direction: "bottom", left: 0 });
       } else {
         setDirection({
           direction: "top",
-          left:
-            label === "composition"
-              ? childBounding.width - wrapperBounding.width || 0
-              : 0,
+          left: label === "composition" ? -(preBounding?.width || 0) : 0,
         });
       }
     }
@@ -67,45 +68,34 @@ const BoxText = ({
   }, [calcResize]);
   return (
     <div ref={wrapperRef} className={cn("inline text-2xl font-medium")}>
-      {pre ? <span>{pre}&nbsp;</span> : ""}
+      {pre ? <span ref={preRef}>{pre}&nbsp;</span> : ""}
       <div ref={cardRef} className={cn("inline-flex relative text-[#F9E06C]")}>
         <TooltipProvider delayDuration={200}>
           <Tooltip>
             <TooltipTrigger asChild>
-              {!text ? (
-                <motion.div
-                  layoutId={label}
-                  className={cn(
-                    "block text-md rounded-sm px-5 py-1 leading-9 text-xl text-white",
-                    pathname.replace("/", "") === label.replace(" ", "")
-                      ? "bg-activate"
-                      : "bg-deactivate",
-                    className
-                  )}
-                  {...extractPropsByClassName}
-                >
-                  {capitalizeFirstLetter(label)}
-                </motion.div>
-              ) : (
-                <motion.div
-                  layoutId={label}
-                  className={cn(
-                    "block text-md rounded-sm px-5 py-1 leading-9 absolute  text-xl text-white whitespace-nowrap",
-                    direction.direction === "top" ? "-top-full" : "top-full",
-                    pathname.replace("/", "") === label.replace(" ", "")
-                      ? "bg-activate"
-                      : "bg-deactivate",
-                    className
-                  )}
-                  style={{
-                    left: `${direction.left}px`,
-                  }}
-                  initial="initial"
-                  {...extractPropsByClassName}
-                >
-                  {capitalizeFirstLetter(label)}
-                </motion.div>
-              )}
+              <motion.div
+                ref={boxRef}
+                layoutId={label}
+                className={cn(
+                  "block text-sm rounded-sm px-5 leading-9 text-white whitespace-nowrap",
+                  !text
+                    ? ""
+                    : direction.direction === "top"
+                    ? "-top-full absolute"
+                    : "top-full absolute",
+                  pathname.replace("/", "") === label.replace(" ", "")
+                    ? "bg-activate"
+                    : "bg-deactivate",
+                  className
+                )}
+                style={{
+                  left: `${direction.left}px`,
+                  ...extractPropsByClassName.style,
+                }}
+                {...extractPropsByClassName}
+              >
+                {capitalizeFirstLetter(label)}
+              </motion.div>
             </TooltipTrigger>
             {description && (
               <TooltipContent side={direction.direction}>
