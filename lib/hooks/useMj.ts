@@ -1,4 +1,4 @@
-import { isNumeric, streamTextToJson } from "@/lib/paser";
+import { isNumeric, streamTextToJson } from "@/lib/parser";
 import { useState } from "react";
 
 export interface MjResponse {

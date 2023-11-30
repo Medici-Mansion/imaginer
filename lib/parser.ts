@@ -31,13 +31,14 @@ export function capitalizeFirstLetter(text: string) {
 
 export const makePrompt = (storeItem: unknown) => {
   const KEY_DATA: { [key in string]: (text: string) => string } = {
+    composition: (text) => `A ${capitalizeFirstLetter(text)}`,
     style: (style: string) =>
       `${capitalizeFirstLetter(style)}-style depiction of`,
+    subject: (text) => text,
+    mood: (text) => `${capitalizeFirstLetter(text)} mood in`,
+    tone: (text) => `${capitalizeFirstLetter(text)} tones`,
     artisticreference: (text) =>
       `reminiscent of ${capitalizeFirstLetter(text)}`,
-    composition: (text) => `A ${capitalizeFirstLetter(text)}`,
-    subject: (text) => text,
-    tone: (text) => `${capitalizeFirstLetter(text)} tones`,
   };
   let result = "";
   const maxLength = Object.keys(KEY_DATA).length - 1;

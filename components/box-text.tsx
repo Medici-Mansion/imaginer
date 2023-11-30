@@ -1,5 +1,5 @@
 "use client";
-import { capitalizeFirstLetter } from "@/lib/paser";
+import { capitalizeFirstLetter } from "@/lib/parser";
 import { cn } from "@/lib/utils";
 import { HTMLMotionProps, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
