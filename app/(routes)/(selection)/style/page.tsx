@@ -1,27 +1,28 @@
 "use client";
 
-import { Images } from "@/types";
+import { useMemo } from "react";
+import { useRouter } from "next/navigation";
+
+import { style } from "@/images";
+import usePrompt from "@/store";
 
 import ImageCard from "@/components/image-card";
 import SubmitButton from "@/components/submit-button";
-import { useRouter } from "next/navigation";
-import usePrompt from "@/store";
-import { useMemo } from "react";
 
-const images: Images[] = [
-  { id: 1, href: "/images/style1.png", value: "Anime" },
-  { id: 2, href: "/images/style2.png", value: "Hyper Realistic" },
-  { id: 3, href: "/images/style3.png", value: "Sci-fi" },
-  { id: 4, href: "/images/style4.png", value: "Photo" },
-  { id: 5, href: "/images/style5.png", value: "Painting" },
-];
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const StylePage = () => {
   const router = useRouter();
   const { addPrompt, promptData } = usePrompt();
 
   const selectedId = useMemo(
-    () => images.findIndex((item) => item.value === promptData.style),
+    () => style.findIndex((item) => item.value === promptData.style),
     [promptData.style]
   );
 
@@ -31,16 +32,34 @@ const StylePage = () => {
         What style of image would you like?{" "}
       </div>
       <div className="flex justify-evenly pt-16">
-        {images.map((img, index) => (
-          <ImageCard
-            key={img.id}
-            href={img.href}
-            id={index}
-            selectId={selectedId}
-            setSelectId={() => addPrompt({ style: img.value })}
-            value={img.value}
-          />
-        ))}
+        <Carousel
+          opts={{
+            align: "start",
+            slidesToScroll: 5,
+          }}
+          className="w-full"
+        >
+          <CarouselContent>
+            {style.map((img, index) => (
+              <CarouselItem key={index} className="md:basis-1/4 lg:basis-1/5">
+                <div className="p-1">
+                  <span className="text-3xl font-semibold">
+                    <ImageCard
+                      key={img.id}
+                      href={img.href}
+                      id={index}
+                      selectId={selectedId}
+                      setSelectId={() => addPrompt({ style: img.value })}
+                      value={img.value}
+                    />
+                  </span>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
       </div>
       <div className="flex justify-end pt-10">
         <SubmitButton
