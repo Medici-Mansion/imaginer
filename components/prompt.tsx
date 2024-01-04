@@ -104,7 +104,7 @@ const Prompt = ({ cache = false, ...props }: PromptProps) => {
     <motion.div
       layoutId="prompt"
       {...props}
-      className={cn("pt-10", props.className)}
+      className={cn("pt-10 leading-[60px]", props.className)}
     >
       <div ref={boxRef}>
         {Object.entries(boxItem).map(([key, value]) => (
