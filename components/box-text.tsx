@@ -69,7 +69,7 @@ const BoxText = ({
   return (
     <div ref={wrapperRef} className={cn("inline text-2xl font-medium")}>
       {pre ? <span ref={preRef}>{pre}&nbsp;</span> : ""}
-      <div ref={cardRef} className={cn("inline-flex relative text-[#F9E06C]")}>
+      <div ref={cardRef} className={cn("inline-flex relative text-c2")}>
         <TooltipProvider delayDuration={200}>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -79,12 +79,12 @@ const BoxText = ({
                 className={cn(
                   "block text-sm rounded-sm px-5 leading-9 text-white whitespace-nowrap",
                   !text
-                    ? ""
+                    ? "text-base"
                     : direction.direction === "top"
                     ? "-top-full absolute"
                     : "top-full absolute",
                   pathname.replace("/", "") === label.replace(" ", "")
-                    ? "bg-activate"
+                    ? "bg-c2"
                     : "bg-deactivate",
                   className
                 )}
