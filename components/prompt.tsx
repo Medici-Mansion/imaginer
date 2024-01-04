@@ -86,11 +86,13 @@ const Prompt = ({ cache = false, ...props }: PromptProps) => {
 
   useEffect(() => {
     setMounted(true);
+    let cr: HTMLDivElement;
     if (boxRef.current) {
+      cr = boxRef.current;
       boxRef.current.addEventListener("resize", resizeHandler);
       window.addEventListener("resize", resizeHandler);
       return () => {
-        boxRef.current?.removeEventListener("resize", resizeHandler);
+        cr.removeEventListener("resize", resizeHandler);
         window.removeEventListener("resize", resizeHandler);
       };
     }
@@ -98,7 +100,7 @@ const Prompt = ({ cache = false, ...props }: PromptProps) => {
 
   useEffect(() => {
     setTimeout(() => resizeHandler(), 500);
-  }, [promptData]);
+  }, [promptData, resizeHandler]);
 
   return (
     <motion.div
