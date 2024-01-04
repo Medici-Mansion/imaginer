@@ -18,13 +18,15 @@ const SubjectRadio = ({
   loading,
 }: SubjectProps) => {
   return (
-    <div className="pt-5 w-full">
+    <div className="pt-5 w-full flex flex-col space-y-4">
       {subjects.map((item: string, index: number) => (
         <div
           key={index}
           className={cn(
-            "flex gap-2 mt-5 bg-[#232323] px-4 py-3 rounded-sm cursor-pointer",
-            select.id === index ? "text-white bg-activate" : "",
+            "flex gap-2 input-box cursor-pointer py-4 px-7 border-transparent rounded-md duration-300",
+            select.id === index
+              ? "text-white border-c2 border-2"
+              : "opacity-50",
             loading && "opacity-50"
           )}
           onClick={() => {
@@ -36,7 +38,6 @@ const SubjectRadio = ({
             }
           }}
         >
-          <div>{index + 1}</div>
           <div>{item}</div>
         </div>
       ))}

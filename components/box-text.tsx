@@ -77,14 +77,14 @@ const BoxText = ({
                 ref={boxRef}
                 layoutId={label}
                 className={cn(
-                  "block text-sm rounded-sm px-5 leading-9 text-white whitespace-nowrap",
+                  "block text-sm rounded-sm px-5 text-white whitespace-nowrap",
                   !text
                     ? "text-base"
                     : direction.direction === "top"
-                    ? "-top-full absolute"
+                    ? "-top-[20px] absolute"
                     : "top-full absolute",
                   pathname.replace("/", "") === label.replace(" ", "")
-                    ? "bg-c2"
+                    ? "bg-c2 text-black"
                     : "bg-deactivate",
                   className
                 )}

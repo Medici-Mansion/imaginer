@@ -6,7 +6,7 @@ html,
 body,
 :root {
   height: 100%;
-  background: #000000;
+  background: #232329;
 }
 
 @layer base {
@@ -83,5 +83,11 @@ body,
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .input-box {
+    @apply bg-[#2E2E37] py-6 rounded-md border-2 border-[#3C3A41] px-2;
   }
 }

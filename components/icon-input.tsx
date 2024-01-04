@@ -13,6 +13,7 @@ import {
   FormLabel,
 } from "@/components/ui/form";
 import { RotateCw } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 interface IconInputProps {
   form: UseFormReturn<FormData>;
@@ -37,27 +38,41 @@ const IconInput = ({ form, label, isLoading }: IconInputProps) => {
                 {...field}
                 value={field.value || ""}
                 disabled={isLoading}
-                className="m-auto w-[40%] bg-[#110F19] py-7 rounded-full border-none"
+                className="m-auto w-[40%] input-box pr-[64px]"
               />
             </FormControl>
             <button
-              className="absolute right-[31%] top-1/2 pr-2 hover:cursor-pointer -translate-y-1/2"
+              className={cn(
+                "absolute right-[31.5%] top-1/2 hover:cursor-pointer -translate-y-1/2  duration-300 rounded-full",
+                field.value && !isLoading && "bg-c2"
+              )}
               type={"submit"}
-              disabled={!form.getValues().sentence || isLoading}
+              disabled={!field.value || isLoading}
             >
               {isLoading ? (
                 <RotateCw className="animate-spin w-5 h-5" />
-              ) : (
+              ) : !field.value ? (
                 <Image
-                  src={
-                    !form.getValues().sentence
-                      ? "/images/send.png"
-                      : "/images/send_fill.png"
-                  }
+                  src="/images/send.png"
                   width={20}
                   height={20}
                   alt="send"
                 />
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                  className="w-6 h-6 text-black"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="m8.25 4.5 7.5 7.5-7.5 7.5"
+                  />
+                </svg>
               )}
             </button>
           </div>
