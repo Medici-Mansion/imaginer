@@ -82,7 +82,7 @@ const BoxText = ({
                     ? "text-base"
                     : direction.direction === "top"
                     ? "-top-[20px] absolute"
-                    : "top-full absolute",
+                    : "-top-[20px] absolute",
                   pathname.replace("/", "") === label.replace(" ", "")
                     ? "bg-c2 text-black"
                     : "bg-deactivate",

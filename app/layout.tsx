@@ -12,11 +12,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html
-      lang="ko"
-      placeholder="imaginer"
-      className="dark w-[1340px] h-[100dvh] mx-auto"
-    >
+    <html lang="ko" placeholder="imaginer" className="dark w-[1340px] mx-auto">
       <body
         suppressHydrationWarning
         className="m-auto flex flex-col justify-center"
