@@ -11,7 +11,7 @@ const Nav = ({ href, title, pathname, isLoading, ...rest }: NavProps) => {
         <Button
           disabled={isLoading}
           className={cn(
-            "bg-[#110F19] w-[180px] border-2 border-[#292730] rounded-md py-6 text-center text-[16px]"
+            "bg-[#373743] w-[180px] border-2 border-[#3C3A41] rounded-md py-6 text-center text-[16px]"
           )}
         >
           {title}
@@ -21,8 +21,8 @@ const Nav = ({ href, title, pathname, isLoading, ...rest }: NavProps) => {
           href={href}
           key={title}
           className={cn(
-            "bg-[#110F19] w-[180px] border-2 border-[#292730] rounded-md py-3 text-center cursor-pointer duration-300",
-            pathname === href ? "border-[#F9E06C]" : "",
+            "bg-[#373743] w-[180px] border-2 border-[#3C3A41] rounded-md py-3 text-center cursor-pointer duration-300",
+            pathname === href ? "border-c2" : "",
             rest.className
           )}
           {...rest}

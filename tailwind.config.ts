@@ -17,6 +17,10 @@ const config: Config = {
     },
     extend: {
       colors: {
+        c2: {
+          DEFAULT: "#AFF4C6",
+          block: "#ADF0B0",
+        },
         activate: "hsl(var(--activate))",
         deactivate: "hsl(var(--deactivate))",
         border: "hsl(var(--border))",

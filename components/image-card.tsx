@@ -31,9 +31,7 @@ const ImageCard = ({
       <Image
         className={cn(
           "rounded-3xl",
-          !loading && id === selectId
-            ? "border-2 border-[#F9E06C]"
-            : "opacity-50",
+          !loading && id === selectId ? "border-2 border-c2" : "opacity-50",
           !loading && selectId < 0 ? "opacity-100" : ""
         )}
         src={href}
