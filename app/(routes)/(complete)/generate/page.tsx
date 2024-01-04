@@ -70,7 +70,7 @@ const GeneragePage = () => {
               router.replace("/");
             }}
             disabled={false}
-            className="bg-[#5854FF] px-16 text-white"
+            className="bg-c2 px-16 text-white"
           >
             Retry
           </SubmitButton>

@@ -63,13 +63,14 @@ const SubjectPage = () => {
         const response = await APIs.getSubjectList({ sentence });
         if (response.ok) {
           setSubjects(response.data);
+          addPrompt({ subject: response.data[0] });
         }
       } catch (error) {
       } finally {
         setLoading(false);
       }
     },
-    [setLoading, setSubjects]
+    [addPrompt, setLoading, setSubjects]
   );
 
   const thinkSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -95,21 +96,18 @@ const SubjectPage = () => {
       </Form>
       <div className="w-[70%] m-auto">
         {visible ? (
-          <>
-            <SubjectRadio
-              subjects={subjects}
-              select={select}
-              setSelect={setSelect}
-              loading={isLoading}
-            />
-            <Refresh onClick={() => thinkSubmit(form.watch())} />
-          </>
+          <SubjectRadio
+            subjects={subjects}
+            select={select}
+            setSelect={setSelect}
+            loading={isLoading}
+          />
         ) : null}
       </div>
       {visible ? (
         <div className="flex justify-end pt-12 pr-32">
           <SubmitButton
-            className="bg-activate px-16 text-white"
+            className="bg-c2 px-16 font-semibold"
             onClick={() => router.push("/style")}
             disabled={!promptData.subject || isLoading}
           >
