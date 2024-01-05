@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { composition } from "@/images";
 import usePrompt from "@/store";
+import { getStartIndex } from "@/lib/utils";
 
 import SubmitButton from "@/components/submit-button";
 import ImageCard from "@/components/image-card";
@@ -26,6 +27,11 @@ const CompositionPage = () => {
       composition.findIndex((item) => item.value === promptData.composition),
     [promptData.composition]
   );
+
+  const startIndex = (index: number) => {
+    return getStartIndex(index);
+  };
+
   return (
     <>
       <div className="text-center text-[40px]">
@@ -36,6 +42,7 @@ const CompositionPage = () => {
           opts={{
             align: "start",
             slidesToScroll: 5,
+            startIndex: startIndex(selectedId || 0),
           }}
           className="w-full"
         >
@@ -49,7 +56,7 @@ const CompositionPage = () => {
                       href={img.href}
                       id={index}
                       selectId={selectedId}
-                      setSelectId={() => addPrompt({ style: img.value })}
+                      setSelectId={() => addPrompt({ composition: img.value })}
                       value={img.value}
                     />
                   </span>
@@ -67,7 +74,7 @@ const CompositionPage = () => {
             router.push("/mood");
           }}
           disabled={false}
-          className="bg-c2 px-16 text-white"
+          className="bg-c2 px-16 text-black"
         >
           Create
         </SubmitButton>

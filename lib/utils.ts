@@ -8,3 +8,5 @@ export function cn(...inputs: ClassValue[]) {
 export const replacePathname = (pathname: string) => {
   return pathname.replace('/', "")
 }
+
+export const getStartIndex = (index: number) => index <= 5 ? 0 : index <= 10 ? 1 : 2;

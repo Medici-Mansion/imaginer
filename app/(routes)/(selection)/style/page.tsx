@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { style } from "@/images";
 import usePrompt from "@/store";
+import { getStartIndex } from "@/lib/utils";
 
 import ImageCard from "@/components/image-card";
 import SubmitButton from "@/components/submit-button";
@@ -26,6 +27,10 @@ const StylePage = () => {
     [promptData.style]
   );
 
+  const startIndex = (index: number) => {
+    return getStartIndex(index);
+  };
+
   return (
     <>
       <div className="text-center text-[40px]">
@@ -36,6 +41,7 @@ const StylePage = () => {
           opts={{
             align: "start",
             slidesToScroll: 5,
+            startIndex: startIndex(selectedId || 0),
           }}
           className="w-full"
         >
@@ -67,7 +73,7 @@ const StylePage = () => {
             router.push("/artisticreference");
           }}
           disabled={false}
-          className="bg-c2 px-16 text-white"
+          className="bg-c2 px-16 text-black"
         >
           Create
         </SubmitButton>

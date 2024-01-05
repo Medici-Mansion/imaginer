@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import usePrompt from "@/store";
 import { artistic } from "@/images";
+import { getStartIndex } from "@/lib/utils";
 
 import SubmitButton from "@/components/submit-button";
 import ImageCard from "@/components/image-card";
@@ -24,6 +25,11 @@ const ArtisticPage = () => {
       artistic.findIndex((item) => item.value === promptData.artisticreference),
     [promptData.artisticreference]
   );
+
+  const startIndex = (index: number) => {
+    return getStartIndex(index);
+  };
+
   return (
     <div>
       <div className="text-center text-[40px]">
@@ -34,6 +40,7 @@ const ArtisticPage = () => {
           opts={{
             align: "start",
             slidesToScroll: 5,
+            startIndex: startIndex(selectedId || 0),
           }}
           className="w-full"
         >
@@ -47,7 +54,9 @@ const ArtisticPage = () => {
                       href={img.href}
                       id={index}
                       selectId={selectedId}
-                      setSelectId={() => addPrompt({ style: img.value })}
+                      setSelectId={() =>
+                        addPrompt({ artisticreference: img.value })
+                      }
                       value={img.value}
                     />
                   </span>
@@ -65,7 +74,7 @@ const ArtisticPage = () => {
             router.push("/composition");
           }}
           disabled={false}
-          className="bg-c2 px-16 text-white"
+          className="bg-c2 px-16 text-black"
         >
           Create
         </SubmitButton>
