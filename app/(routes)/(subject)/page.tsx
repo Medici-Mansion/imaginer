@@ -11,7 +11,6 @@ import { useLoadingStore } from "@/store/loading";
 import APIs from "@/apis";
 
 import { Form } from "@/components/ui/form";
-import Refresh from "@/components/refresh";
 import SubmitButton from "@/components/submit-button";
 import SubjectRadio from "@/components/subject-radio";
 import IconInput from "@/components/icon-input";
@@ -27,7 +26,7 @@ export interface Subject {
 }
 
 const SubjectPage = () => {
-  const { addPrompt, promptData } = usePrompt();
+  const { subject, setSubject } = usePrompt();
   const router = useRouter();
   const { isLoading, setLoading } = useLoadingStore();
   const { subjects, setSubjects, input, changeInput } =
@@ -41,7 +40,7 @@ const SubjectPage = () => {
   });
 
   const select = useMemo(() => {
-    const selectedSubject = promptData.subject;
+    const selectedSubject = subject;
     let result: Subject = { id: 0, subject: "" };
     if (selectedSubject) {
       subjects.some((item, index) => {
@@ -54,7 +53,7 @@ const SubjectPage = () => {
       });
     }
     return result;
-  }, [promptData.subject, subjects]);
+  }, [subject, subjects]);
 
   const getSubjects = useCallback(
     async (sentence: string) => {
@@ -63,14 +62,14 @@ const SubjectPage = () => {
         const response = await APIs.getSubjectList({ sentence });
         if (response.ok) {
           setSubjects(response.data);
-          addPrompt({ subject: response.data[0] });
+          setSubject(subject);
         }
       } catch (error) {
       } finally {
         setLoading(false);
       }
     },
-    [addPrompt, setLoading, setSubjects]
+    [setLoading, setSubject, setSubjects, subject]
   );
 
   const thinkSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -79,7 +78,7 @@ const SubjectPage = () => {
   };
 
   const setSelect = (args: Subject) => {
-    addPrompt({ subject: args.subject });
+    setSubject(args.subject);
   };
 
   const visible = subjects.length > 0;
@@ -109,7 +108,7 @@ const SubjectPage = () => {
           <SubmitButton
             className="bg-primary px-16 font-semibold"
             onClick={() => router.push("/style")}
-            disabled={!promptData.subject || isLoading}
+            disabled={!subject || isLoading}
           >
             {"Create"}
           </SubmitButton>

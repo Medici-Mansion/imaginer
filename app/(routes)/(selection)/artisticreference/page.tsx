@@ -20,15 +20,12 @@ import {
 const ArtisticPage = () => {
   const { addPrompt, promptData } = usePrompt();
   const router = useRouter();
-  const selectedId = useMemo(
-    () =>
-      artistic.findIndex((item) => item.value === promptData.artisticreference),
-    [promptData.artisticreference]
-  );
 
   const startIndex = (index: number) => {
     return getStartIndex(index);
   };
+
+  const selectedId = promptData.artisticreference.map((item) => item.id);
 
   return (
     <div>
@@ -40,7 +37,9 @@ const ArtisticPage = () => {
           opts={{
             align: "start",
             slidesToScroll: 5,
-            startIndex: startIndex(selectedId || 0),
+            startIndex: startIndex(
+              selectedId.length === 0 ? 0 : selectedId.sort((a, b) => a - b)[0]
+            ),
           }}
           className="w-full"
         >
@@ -54,9 +53,6 @@ const ArtisticPage = () => {
                       href={img.href}
                       id={index}
                       selectId={selectedId}
-                      setSelectId={() =>
-                        addPrompt({ artisticreference: img.value })
-                      }
                       value={img.value}
                     />
                   </span>

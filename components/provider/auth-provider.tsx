@@ -4,9 +4,7 @@ import { redirect } from "next/navigation";
 import { useEffect } from "react";
 
 const AuthProvider = () => {
-  const {
-    promptData: { subject },
-  } = usePrompt();
+  const { subject } = usePrompt();
 
   useEffect(() => {
     window.requestIdleCallback = function (cb: (props: unknown) => void) {

@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from "react";
 import { useRouter } from "next/navigation";
 
 import { style } from "@/images";
@@ -20,16 +19,13 @@ import {
 
 const StylePage = () => {
   const router = useRouter();
-  const { addPrompt, promptData } = usePrompt();
-
-  const selectedId = useMemo(
-    () => style.findIndex((item) => item.value === promptData.style),
-    [promptData.style]
-  );
+  const { promptData } = usePrompt();
 
   const startIndex = (index: number) => {
     return getStartIndex(index);
   };
+
+  const selectedId = promptData.style.map((item) => item.id);
 
   return (
     <>
@@ -41,7 +37,9 @@ const StylePage = () => {
           opts={{
             align: "start",
             slidesToScroll: 5,
-            startIndex: startIndex(selectedId || 0),
+            startIndex: startIndex(
+              selectedId.length === 0 ? 0 : selectedId.sort((a, b) => a - b)[0]
+            ),
           }}
           className="w-full"
         >
@@ -55,7 +53,6 @@ const StylePage = () => {
                       href={img.href}
                       id={index}
                       selectId={selectedId}
-                      setSelectId={() => addPrompt({ style: img.value })}
                       value={img.value}
                     />
                   </span>

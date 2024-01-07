@@ -22,14 +22,11 @@ const ArtisticPage = () => {
   const router = useRouter();
   const { addPrompt, promptData } = usePrompt();
 
-  const selectedId = useMemo(
-    () => mood.findIndex((item) => item.value === promptData.mood),
-    [promptData.mood]
-  );
-
   const startIndex = (index: number) => {
     return getStartIndex(index);
   };
+
+  const selectedId = promptData.mood.map((item) => item.id);
 
   return (
     <div>
@@ -41,7 +38,9 @@ const ArtisticPage = () => {
           opts={{
             align: "start",
             slidesToScroll: 5,
-            startIndex: startIndex(selectedId || 0),
+            startIndex: startIndex(
+              selectedId.length === 0 ? 0 : selectedId.sort((a, b) => a - b)[0]
+            ),
           }}
           className="w-full"
         >
@@ -55,7 +54,6 @@ const ArtisticPage = () => {
                       href={img.href}
                       id={index}
                       selectId={selectedId}
-                      setSelectId={() => addPrompt({ mood: img.value })}
                       value={img.value}
                     />
                   </span>

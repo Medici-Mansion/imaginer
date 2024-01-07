@@ -10,42 +10,49 @@ interface PromptStore {
   setSubjects: (subjects: string[]) => void;
   input: string;
   setInput: (input: string) => void;
+  subject: string
+  setSubject: (subject: string) => void
 }
+
 
 const usePrompt = create(
   persist<PromptStore>(
     (set) => ({
       promptData: {
-        composition: "",
-        style: "",
-        subject: "",
-        tone: "",
-        mood: "",
-        artisticreference: "",
+        composition: [],
+        style: [],
+        tone: [],
+        mood: [],
+        artisticreference: [],
       },
+
       addPrompt: (data) => {
-        set((state) => ({
-          promptData: {
-            ...state.promptData,
-            ...data,
-          },
-        }));
+        set((state) => {
+          return {
+            promptData: {
+              ...state.promptData,
+              ...data,
+            },
+          };
+        });
       },
       clear: () =>
         set((store) => ({
           ...store,
           promptData: {
-            composition: "",
-            style: "",
-            subject: "",
-            artisticreference: "",
-            tone: "",
-            mood: "",
+            composition: [],
+            style: [],
+            subject: [],
+            artisticreference: [],
+            tone: [],
+            mood: [],
           },
           input: "",
           subjects: [],
         })),
       input: "",
+      subject: "",
+      setSubject: (subject) => set({ subject }),
       setInput: (input: string) =>
         set((storeData) => ({ ...storeData, input })),
       subjects: [],
@@ -59,3 +66,5 @@ const usePrompt = create(
 );
 
 export default usePrompt;
+
+

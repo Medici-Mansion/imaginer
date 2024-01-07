@@ -22,15 +22,11 @@ const CompositionPage = () => {
   const { addPrompt, promptData } = usePrompt();
   const router = useRouter();
 
-  const selectedId = useMemo(
-    () =>
-      composition.findIndex((item) => item.value === promptData.composition),
-    [promptData.composition]
-  );
-
   const startIndex = (index: number) => {
     return getStartIndex(index);
   };
+
+  const selectedId = promptData.composition.map((item) => item.id);
 
   return (
     <>
@@ -42,7 +38,9 @@ const CompositionPage = () => {
           opts={{
             align: "start",
             slidesToScroll: 5,
-            startIndex: startIndex(selectedId || 0),
+            startIndex: startIndex(
+              selectedId.length === 0 ? 0 : selectedId.sort((a, b) => a - b)[0]
+            ),
           }}
           className="w-full"
         >
@@ -56,7 +54,6 @@ const CompositionPage = () => {
                       href={img.href}
                       id={index}
                       selectId={selectedId}
-                      setSelectId={() => addPrompt({ composition: img.value })}
                       value={img.value}
                     />
                   </span>
