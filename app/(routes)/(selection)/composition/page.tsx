@@ -67,7 +67,7 @@ const CompositionPage = () => {
             router.push("/mood");
           }}
           disabled={false}
-          className="bg-c2 px-16 text-white"
+          className="bg-primary px-16 text-white"
         >
           Create
         </SubmitButton>
