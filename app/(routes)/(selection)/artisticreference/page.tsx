@@ -64,17 +64,6 @@ const ArtisticPage = () => {
           <CarouselNext />
         </Carousel>
       </div>
-      <div className="flex justify-end pt-10">
-        <SubmitButton
-          onClick={() => {
-            router.push("/composition");
-          }}
-          disabled={false}
-          className="bg-primary px-16 text-white"
-        >
-          Create
-        </SubmitButton>
-      </div>
     </div>
   );
 };

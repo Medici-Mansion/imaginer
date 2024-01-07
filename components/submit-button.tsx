@@ -1,3 +1,4 @@
+"use client";
 import { SubmitButtonProps } from "@/types";
 import { Button } from "@/components/ui/button";
 

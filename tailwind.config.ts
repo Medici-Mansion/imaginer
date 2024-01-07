@@ -64,6 +64,8 @@ const config: Config = {
       },
       fontSize: {
         title: ["32px", "auto"],
+        gptPrompt: ["20px", "auto"],
+        button: ["20px", "auto"],
       },
       borderRadius: {
         lg: "var(--radius)",

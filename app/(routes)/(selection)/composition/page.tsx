@@ -65,17 +65,6 @@ const CompositionPage = () => {
           <CarouselNext />
         </Carousel>
       </div>
-      <div className="flex justify-end pt-10">
-        <SubmitButton
-          onClick={() => {
-            router.push("/mood");
-          }}
-          disabled={false}
-          className="bg-primary px-16 text-white"
-        >
-          Create
-        </SubmitButton>
-      </div>
     </>
   );
 };

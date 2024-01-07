@@ -10,10 +10,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Images } from "@/types";
 
 interface BoxTextProps extends HTMLMotionProps<"div"> {
+  block: boolean;
   label: string;
-  text?: string;
+  text?: Omit<Images, "href">[];
   sub?: string;
   pre?: string;
   bounding: {
@@ -32,6 +34,7 @@ const BoxText = ({
   sub,
   bounding,
   description,
+  block,
   ...rest
 }: BoxTextProps) => {
   const { className, pre, ...extractPropsByClassName } = rest;
@@ -72,31 +75,33 @@ const BoxText = ({
       <div ref={cardRef} className={cn("inline-flex relative text-primary")}>
         <TooltipProvider delayDuration={200}>
           <Tooltip>
-            <TooltipTrigger asChild>
-              <motion.div
-                ref={boxRef}
-                layoutId={label}
-                className={cn(
-                  "block text-sm rounded-sm px-5 text-white whitespace-nowrap",
-                  !text
-                    ? "text-base"
-                    : direction.direction === "top"
-                    ? "-top-[20px] absolute"
-                    : "-top-[20px] absolute",
-                  pathname.replace("/", "") === label.replace(" ", "")
-                    ? "bg-primary text-black"
-                    : "bg-deactivate",
-                  className
-                )}
-                style={{
-                  left: `${direction.left}px`,
-                  ...extractPropsByClassName.style,
-                }}
-                {...extractPropsByClassName}
-              >
-                {capitalizeFirstLetter(label)}
-              </motion.div>
-            </TooltipTrigger>
+            {block && (
+              <TooltipTrigger asChild>
+                <motion.div
+                  ref={boxRef}
+                  layoutId={label}
+                  className={cn(
+                    "block text-sm rounded-sm px-5 text-white whitespace-nowrap",
+                    !text?.length
+                      ? "text-base"
+                      : direction.direction === "top"
+                      ? "-top-[20px] absolute"
+                      : "-top-[20px] absolute",
+                    pathname.replace("/", "") === label.replace(" ", "")
+                      ? "bg-primary text-black"
+                      : "bg-deactivate",
+                    className
+                  )}
+                  style={{
+                    left: `${direction.left}px`,
+                    ...extractPropsByClassName.style,
+                  }}
+                  {...extractPropsByClassName}
+                >
+                  {capitalizeFirstLetter(label)}
+                </motion.div>
+              </TooltipTrigger>
+            )}
             {description && (
               <TooltipContent side={direction.direction}>
                 <p>{description}</p>
@@ -104,7 +109,14 @@ const BoxText = ({
             )}
           </Tooltip>
         </TooltipProvider>
-        {text}
+        {text?.map((item, index) => (
+          <p key={item.value}>
+            {item.value}
+            {index !== text.length - 1 && (
+              <small className="text-white">,&nbsp;</small>
+            )}
+          </p>
+        ))}
       </div>
       {sub}&nbsp;
     </div>

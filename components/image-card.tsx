@@ -48,7 +48,7 @@ const ImageCard = ({ href, id, selectId, value }: ImageCardProps) => {
         className={cn(
           "rounded-3xl",
           !loading && Array.isArray(selectId) && selectId.includes(id)
-            ? "border-2 border-primary"
+            ? "border-4 border-primary"
             : "opacity-50",
           !loading && Array.isArray(selectId) && selectId.length === 0
             ? "opacity-100"
