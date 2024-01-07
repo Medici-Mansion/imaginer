@@ -3,7 +3,6 @@ import "./globals.css";
 import { PropsWithChildren } from "react";
 import { PromptProvider } from "@/components/provider/prompt-provider";
 import Navigation from "@/components/navigation";
-import { NavigationList } from "@/constants";
 
 export const metadata: Metadata = {
   title: "Imaginer",
@@ -18,7 +17,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         className="m-auto flex flex-col justify-center"
       >
         <PromptProvider>
-          <Navigation navList={NavigationList} />
+          <Navigation />
           {children}
         </PromptProvider>
       </body>
