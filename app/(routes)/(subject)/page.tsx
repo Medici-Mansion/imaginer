@@ -107,7 +107,7 @@ const SubjectPage = () => {
       {visible ? (
         <div className="flex justify-end pt-12 pr-32">
           <SubmitButton
-            className="bg-c2 px-16 font-semibold"
+            className="bg-primary px-16 font-semibold"
             onClick={() => router.push("/style")}
             disabled={!promptData.subject || isLoading}
           >

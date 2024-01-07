@@ -69,7 +69,7 @@ const BoxText = ({
   return (
     <div ref={wrapperRef} className={cn("inline text-2xl font-medium")}>
       {pre ? <span ref={preRef}>{pre}&nbsp;</span> : ""}
-      <div ref={cardRef} className={cn("inline-flex relative text-c2")}>
+      <div ref={cardRef} className={cn("inline-flex relative text-primary")}>
         <TooltipProvider delayDuration={200}>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -84,7 +84,7 @@ const BoxText = ({
                     ? "-top-[20px] absolute"
                     : "-top-[20px] absolute",
                   pathname.replace("/", "") === label.replace(" ", "")
-                    ? "bg-c2 text-black"
+                    ? "bg-primary text-black"
                     : "bg-deactivate",
                   className
                 )}
