@@ -11,11 +11,13 @@ import {
 } from "react";
 import { cn } from "@/lib/utils";
 import { HTMLMotionProps, motion } from "framer-motion";
+import { Images } from "@/types";
 
 interface PromptProps extends HTMLMotionProps<"div"> {
   cache?: boolean;
+  block?: boolean;
 }
-const Prompt = ({ cache = false, ...props }: PromptProps) => {
+const Prompt = ({ cache = false, block = true, ...props }: PromptProps) => {
   const prompt = usePrompt();
   const cachePrompt = useRef(prompt);
   const { promptData, subject } = cache ? cachePrompt.current : prompt || {};
@@ -36,7 +38,7 @@ const Prompt = ({ cache = false, ...props }: PromptProps) => {
     if (!mounted) return {};
     const boxes: {
       [key: string]: {
-        text: string;
+        text: Omit<Images, "href">[];
         pre: string;
         sub: string;
         direction?: "top" | "bottom";
@@ -55,13 +57,13 @@ const Prompt = ({ cache = false, ...props }: PromptProps) => {
         pre: "",
       },
       subject: {
-        text: subject,
+        text: [{ value: subject, id: 0 }],
         sub: "",
         pre: "",
       },
       mood: {
         text: mood,
-        sub: " mood in",
+        sub: " mood with",
         pre: "",
       },
       tone: {
@@ -102,25 +104,33 @@ const Prompt = ({ cache = false, ...props }: PromptProps) => {
   useEffect(() => {
     setTimeout(() => resizeHandler(), 500);
   }, [promptData, resizeHandler]);
-
   return (
     <motion.div
       layoutId="prompt"
       {...props}
-      className={cn("pt-10 leading-[60px]", props.className)}
+      className={cn(
+        "pt-10",
+        block ? "leading-[60px]" : "leading-8",
+        props.className
+      )}
     >
       <div ref={boxRef}>
-        {Object.entries(boxItem).map(([key, value]) => (
-          <BoxText
-            key={key}
-            bounding={bounding}
-            label={key}
-            pre={value.pre}
-            sub={value.sub}
-            text={value.text}
-            description={value.description}
-          />
-        ))}
+        {Object.entries(boxItem)
+          .filter((item) => block || !!item?.[1].text.length)
+          .map(([key, value], index) => {
+            return (
+              <BoxText
+                block={block}
+                key={key}
+                bounding={bounding}
+                label={key}
+                pre={value.pre}
+                sub={value.sub}
+                text={value.text}
+                description={value.description}
+              />
+            );
+          })}
       </div>
     </motion.div>
   );

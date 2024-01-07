@@ -38,7 +38,7 @@ const IconInput = ({ form, label, isLoading }: IconInputProps) => {
                 {...field}
                 value={field.value || ""}
                 disabled={isLoading}
-                className="m-auto w-[40%] input-box pr-[64px]"
+                className="m-auto w-[40%] input-box pr-[64px] text-gptPrompt"
               />
             </FormControl>
             <button

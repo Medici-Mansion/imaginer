@@ -10,10 +10,9 @@ interface PromptStore {
   setSubjects: (subjects: string[]) => void;
   input: string;
   setInput: (input: string) => void;
-  subject: string
-  setSubject: (subject: string) => void
+  subject: string;
+  setSubject: (subject: string) => void;
 }
-
 
 const usePrompt = create(
   persist<PromptStore>(
@@ -48,6 +47,7 @@ const usePrompt = create(
             mood: [],
           },
           input: "",
+          subject: "",
           subjects: [],
         })),
       input: "",
@@ -66,5 +66,3 @@ const usePrompt = create(
 );
 
 export default usePrompt;
-
-

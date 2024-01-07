@@ -28,10 +28,6 @@ const ArtisticPage = () => {
 
   const selectedId = promptData.tone.map((item) => item.id);
 
-  console.log(
-    selectedId.sort((a, b) => a - b),
-    "<<<<"
-  );
   return (
     <div>
       <div className="text-center text-[40px]">
@@ -68,17 +64,6 @@ const ArtisticPage = () => {
           <CarouselPrevious />
           <CarouselNext />
         </Carousel>
-      </div>
-      <div className="flex justify-end pt-10">
-        <SubmitButton
-          onClick={() => {
-            router.push("/generate");
-          }}
-          disabled={false}
-          className="bg-primary px-16 text-white"
-        >
-          Create
-        </SubmitButton>
       </div>
     </div>
   );

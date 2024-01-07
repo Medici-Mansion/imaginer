@@ -1,13 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-
 import { style } from "@/images";
 import usePrompt from "@/store";
 import { getStartIndex } from "@/lib/utils";
 
 import ImageCard from "@/components/image-card";
-import SubmitButton from "@/components/submit-button";
 
 import {
   Carousel,
@@ -18,14 +15,13 @@ import {
 } from "@/components/ui/carousel";
 
 const StylePage = () => {
-  const router = useRouter();
   const { promptData } = usePrompt();
 
   const startIndex = (index: number) => {
     return getStartIndex(index);
   };
 
-  const selectedId = promptData.style.map((item) => item.id);
+  const selectedId = promptData?.style?.map((item) => item.id);
 
   return (
     <>
@@ -63,17 +59,6 @@ const StylePage = () => {
           <CarouselPrevious />
           <CarouselNext />
         </Carousel>
-      </div>
-      <div className="flex justify-end pt-10">
-        <SubmitButton
-          onClick={() => {
-            router.push("/artisticreference");
-          }}
-          disabled={false}
-          className="bg-primary px-16 text-white"
-        >
-          Create
-        </SubmitButton>
       </div>
     </>
   );

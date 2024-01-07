@@ -143,7 +143,7 @@ const MjImages = ({
                     width={2048}
                     height={2048}
                     className={cn(
-                      "aspect-square rounded-3xl w-full h-full border border-transparent peer-hover:border-[#F9E06C] peer-checked:border-[#F9E06C] duration-200",
+                      "aspect-square rounded-3xl w-full h-full border border-transparent peer-hover:border-primary peer-checked:border-primary duration-200",
                       isDone &&
                         isNumeric(selectedIndex) &&
                         "opacity-50 peer-checked:opacity-100"
