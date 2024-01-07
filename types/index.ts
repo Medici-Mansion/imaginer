@@ -20,8 +20,8 @@ export interface NavProps extends HTMLAttributes<HTMLAnchorElement> {
 export interface ImageCardProps {
   href: string;
   id: number;
-  selectId: number;
-  setSelectId: (id: number) => void;
+  selectId: number[];
+  setSelectId?: (id: number) => void;
   value: string;
 }
 
@@ -32,12 +32,11 @@ export interface Images {
 }
 
 export interface PromptStoreItem {
-  style: string;
-  subject: string;
-  composition: string;
-  tone: string;
-  mood: string;
-  artisticreference: string;
+  style: Omit<Images, 'href'>[]
+  composition: Omit<Images, 'href'>[]
+  tone: Omit<Images, 'href'>[]
+  mood: Omit<Images, 'href'>[]
+  artisticreference: Omit<Images, 'href'>[]
 }
 
 export interface SubmitButtonProps extends HTMLAttributes<HTMLButtonElement> {

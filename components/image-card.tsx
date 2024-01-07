@@ -2,22 +2,15 @@
 
 import Image from "next/image";
 
-import { cn } from "@/lib/utils";
-import { replacePathname } from "@/lib/utils";
+import { cn, replacePathname } from "@/lib/utils";
 import { ImageCardProps } from "@/types";
 import { usePathname } from "next/navigation";
 import usePrompt from "@/store";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-const ImageCard = ({
-  href,
-  id,
-  selectId,
-  setSelectId,
-  value,
-}: ImageCardProps) => {
+const ImageCard = ({ href, id, selectId, value }: ImageCardProps) => {
   const pathname = usePathname();
-  const { addPrompt } = usePrompt();
+  const { addPrompt, promptData } = usePrompt();
   const [loading, setLoading] = useState(true);
 
   const promptName = replacePathname(pathname);
@@ -26,22 +19,46 @@ const ImageCard = ({
     setLoading(false);
   }, []);
 
+  const clickImageHandler = useCallback(
+    (value: string, id: number, href: string) => {
+      const isSameProperty = promptData[promptName].some((item) => {
+        return item.id === id;
+      });
+
+      if (isSameProperty) {
+        const filterPrompt = promptData[promptName].filter(
+          (item) => item.id !== id
+        );
+
+        addPrompt({
+          [promptName]: filterPrompt,
+        });
+      } else {
+        addPrompt({
+          [promptName]: [...promptData[promptName], { value, id, href }],
+        });
+      }
+    },
+    [addPrompt, promptData, promptName]
+  );
+
   return (
     <div className="flex flex-col items-center space-y-4">
       <Image
         className={cn(
           "rounded-3xl",
-          !loading && id === selectId ? "border-2 border-c2" : "opacity-50",
-          !loading && selectId < 0 ? "opacity-100" : ""
+          !loading && Array.isArray(selectId) && selectId.includes(id)
+            ? "border-2 border-primary"
+            : "opacity-50",
+          !loading && Array.isArray(selectId) && selectId.length === 0
+            ? "opacity-100"
+            : ""
         )}
         src={href}
         width={200}
         height={200}
         alt="image"
-        onClick={() => {
-          setSelectId(id);
-          addPrompt({ [promptName]: value });
-        }}
+        onClick={() => clickImageHandler(value, id, href)}
         placeholder="blur"
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
       />

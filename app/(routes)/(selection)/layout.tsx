@@ -6,7 +6,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <>
       <main className="flex-[3] flex flex-col justify-center">{children}</main>
-      <Prompt className="mx-auto flex-1" />
+      {/* <Prompt className="mx-auto flex-1" /> */}
       <AuthProvider />
     </>
   );

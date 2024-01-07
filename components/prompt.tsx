@@ -18,8 +18,9 @@ interface PromptProps extends HTMLMotionProps<"div"> {
 const Prompt = ({ cache = false, ...props }: PromptProps) => {
   const prompt = usePrompt();
   const cachePrompt = useRef(prompt);
-  const { promptData } = cache ? cachePrompt.current : prompt || {};
-  const { subject, style, composition, tone, artisticreference, mood } =
+  const { promptData, subject } = cache ? cachePrompt.current : prompt || {};
+
+  const { style, composition, tone, artisticreference, mood } =
     promptData || {};
   const boxRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);

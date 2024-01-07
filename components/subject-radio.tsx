@@ -25,7 +25,7 @@ const SubjectRadio = ({
           className={cn(
             "flex gap-2 input-box cursor-pointer py-4 px-7 border-transparent rounded-md duration-300",
             select.id === index
-              ? "text-white border-c2 border-2"
+              ? "text-white border-primary border-2"
               : "opacity-50",
             loading && "opacity-50"
           )}

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import { tone } from "@/images";
 import usePrompt from "@/store";
+import { getStartIndex } from "@/lib/utils";
 
 import ImageCard from "@/components/image-card";
 import SubmitButton from "@/components/submit-button";
@@ -18,11 +19,18 @@ import {
 } from "@/components/ui/carousel";
 
 const ArtisticPage = () => {
-  const { addPrompt, promptData } = usePrompt();
   const router = useRouter();
-  const selectedId = useMemo(
-    () => tone.findIndex((item) => item.value === promptData.tone),
-    [promptData.tone]
+  const { addPrompt, promptData } = usePrompt();
+
+  const startIndex = (index: number) => {
+    return getStartIndex(index);
+  };
+
+  const selectedId = promptData.tone.map((item) => item.id);
+
+  console.log(
+    selectedId.sort((a, b) => a - b),
+    "<<<<"
   );
   return (
     <div>
@@ -34,6 +42,9 @@ const ArtisticPage = () => {
           opts={{
             align: "start",
             slidesToScroll: 5,
+            startIndex: startIndex(
+              selectedId.length === 0 ? 0 : selectedId.sort((a, b) => a - b)[0]
+            ),
           }}
           className="w-full"
         >
@@ -47,7 +58,6 @@ const ArtisticPage = () => {
                       href={img.href}
                       id={index}
                       selectId={selectedId}
-                      setSelectId={() => addPrompt({ style: img.value })}
                       value={img.value}
                     />
                   </span>
@@ -65,7 +75,7 @@ const ArtisticPage = () => {
             router.push("/generate");
           }}
           disabled={false}
-          className="bg-c2 px-16 text-white"
+          className="bg-primary px-16 text-white"
         >
           Create
         </SubmitButton>

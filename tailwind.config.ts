@@ -21,6 +21,11 @@ const config: Config = {
           DEFAULT: "#AFF4C6",
           block: "#ADF0B0",
         },
+        800: "#110F19",
+        600: "#292730",
+        400: "#2E2E37",
+        200: "#404040",
+
         activate: "hsl(var(--activate))",
         deactivate: "hsl(var(--deactivate))",
         border: "hsl(var(--border))",
@@ -56,6 +61,9 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      fontSize: {
+        title: ["32px", "auto"],
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 
 import usePrompt from "@/store";
 import { artistic } from "@/images";
+import { getStartIndex } from "@/lib/utils";
 
 import SubmitButton from "@/components/submit-button";
 import ImageCard from "@/components/image-card";
@@ -19,11 +20,13 @@ import {
 const ArtisticPage = () => {
   const { addPrompt, promptData } = usePrompt();
   const router = useRouter();
-  const selectedId = useMemo(
-    () =>
-      artistic.findIndex((item) => item.value === promptData.artisticreference),
-    [promptData.artisticreference]
-  );
+
+  const startIndex = (index: number) => {
+    return getStartIndex(index);
+  };
+
+  const selectedId = promptData.artisticreference.map((item) => item.id);
+
   return (
     <div>
       <div className="text-center text-[40px]">
@@ -34,6 +37,9 @@ const ArtisticPage = () => {
           opts={{
             align: "start",
             slidesToScroll: 5,
+            startIndex: startIndex(
+              selectedId.length === 0 ? 0 : selectedId.sort((a, b) => a - b)[0]
+            ),
           }}
           className="w-full"
         >
@@ -47,7 +53,6 @@ const ArtisticPage = () => {
                       href={img.href}
                       id={index}
                       selectId={selectedId}
-                      setSelectId={() => addPrompt({ style: img.value })}
                       value={img.value}
                     />
                   </span>
@@ -65,7 +70,7 @@ const ArtisticPage = () => {
             router.push("/composition");
           }}
           disabled={false}
-          className="bg-c2 px-16 text-white"
+          className="bg-primary px-16 text-white"
         >
           Create
         </SubmitButton>
