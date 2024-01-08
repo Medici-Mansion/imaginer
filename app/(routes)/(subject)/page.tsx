@@ -83,7 +83,7 @@ const SubjectPage = () => {
 
   const visible = subjects.length > 0 || subject === "";
   return (
-    <div className="py-6">
+    <div className="pb-6 flex flex-col h-full">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(thinkSubmit)}>
           <IconInput
@@ -104,9 +104,9 @@ const SubjectPage = () => {
         ) : null}
       </div>
       {visible && subject ? (
-        <div className="flex justify-end pt-12 pr-32">
+        <div className="justify-end flex pb-8 flex-1 items-center">
           <SubmitButton
-            className="bg-primary px-16 font-semibold"
+            className="bg-primary px-16 h-12 ml-auto block font-semibold"
             onClick={() => router.push("/style")}
             disabled={!subject || isLoading}
           >

@@ -30,7 +30,7 @@ const ArtisticPage = () => {
 
   return (
     <div>
-      <div className="text-center text-[40px]">
+      <div className="text-center text-title">
         What tone of image would you like?
       </div>
       <div className="flex justify-evenly pt-16">
@@ -41,6 +41,7 @@ const ArtisticPage = () => {
             startIndex: startIndex(
               selectedId.length === 0 ? 0 : selectedId.sort((a, b) => a - b)[0]
             ),
+            loop: true,
           }}
           className="w-full"
         >

@@ -63,9 +63,10 @@ const config: Config = {
         },
       },
       fontSize: {
-        title: ["32px", "auto"],
-        gptPrompt: ["20px", "auto"],
-        button: ["20px", "auto"],
+        title: ["32px", "1"],
+        gptPrompt: "20px",
+        button: "20px",
+        image: "18px",
       },
       borderRadius: {
         lg: "var(--radius)",

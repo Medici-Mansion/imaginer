@@ -15,13 +15,13 @@ const NextButtons = () => {
   const pathname = usePathname() as keyof typeof pathMap;
 
   return (
-    <div className="items-end flex-1 justify-end flex pb-8">
+    <div className="justify-end flex pb-8 flex-1 items-center">
       <SubmitButton
         onClick={() => {
           router.push(pathMap[pathname]);
         }}
         disabled={false}
-        className="bg-primary px-16 h-12 ml-auto block"
+        className="bg-primary px-16 h-12 ml-auto block font-semibold"
       >
         Create
       </SubmitButton>
