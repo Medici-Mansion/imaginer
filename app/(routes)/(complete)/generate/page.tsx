@@ -32,7 +32,6 @@ const GeneragePage = () => {
     [clear, generateImage]
   );
   const isIdle = !isGenerating && !uri;
-
   useEffect(() => {
     if (!isGenerating) {
       queue.current.clear();

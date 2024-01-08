@@ -37,8 +37,8 @@ export const makePrompt = (
     style: (style: string) =>
       `${capitalizeFirstLetter(style)}-style depiction of`,
     subject: (text) => text,
-    mood: (text) => `${capitalizeFirstLetter(text)} mood in`,
-    tone: (text) => `${capitalizeFirstLetter(text)} tones`,
+    mood: (text) => `in a ${capitalizeFirstLetter(text)} mood`,
+    tone: (text) => `with ${capitalizeFirstLetter(text)} tones`,
     artisticreference: (text) =>
       `reminiscent of ${capitalizeFirstLetter(text)}`,
   };
@@ -60,10 +60,14 @@ export const makePrompt = (
       );
       result += parsedText + (index !== maxLength ? ", " : "");
     }
-    if (index === orderedPromptKey.length - 1 && result.endsWith(", ")) {
+    if (
+      index === orderedPromptKey.length - 1 &&
+      (result.trim().endsWith(", ") || result.trim().endsWith(","))
+    ) {
+      result = result.trim();
       result = result.slice(0, result.length - 1);
+      result += ".";
     }
   });
-
   return result;
 };
