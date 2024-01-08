@@ -3,6 +3,8 @@ import "./globals.css";
 import { PropsWithChildren } from "react";
 import { PromptProvider } from "@/components/provider/prompt-provider";
 import Navigation from "@/components/navigation";
+import { cn } from "@/lib/utils";
+import fonts from "@/fonts";
 
 export const metadata: Metadata = {
   title: "Imaginer",
@@ -11,7 +13,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="ko" placeholder="imaginer" className="dark w-[1340px] mx-auto">
+    <html
+      lang="ko"
+      placeholder="imaginer"
+      className={cn("dark w-[1340px] mx-auto", fonts.roboto.className)}
+    >
       <body
         suppressHydrationWarning
         className="m-auto flex flex-col justify-center"

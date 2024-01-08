@@ -94,6 +94,7 @@ const BoxText = ({
                   )}
                   style={{
                     left: `${direction.left}px`,
+                    transition: "background-color 0.2s ease-in-out",
                     ...extractPropsByClassName.style,
                   }}
                   {...extractPropsByClassName}

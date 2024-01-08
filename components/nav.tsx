@@ -5,6 +5,7 @@ import { NavProps } from "@/types";
 import { Check } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import fonts from "@/fonts";
 
 const Nav = ({
   href,
@@ -30,15 +31,16 @@ const Nav = ({
           href={href}
           key={title}
           className={cn(
-            "bg-[#373743] w-[180px] border-2 border-[#3C3A41] rounded-md py-2.5 text-center cursor-pointer duration-300 relative flex items-center justify-center",
+            "bg-[#373743] w-[180px] border-2 border-[#3C3A41] rounded-md py-2.5 text-center cursor-pointer duration-300 relative flex items-center justify-center h-12",
             pathname === href ? "border-primary" : "",
-            rest.className,
-            title === "Artistic Reference" ? "text-sm px-8 py-0.5" : ""
+            rest.className
           )}
           {...rest}
         >
-          <div className="flex items-center justify-center">
-            <div>{title}</div>
+          <div className="flex items-center justify-center relative flex-1">
+            <pre className={cn("text-sm", fonts.roboto.className)}>
+              {title.split(" ").join("\n")}
+            </pre>
             {active && (
               <Check
                 className={cn(
