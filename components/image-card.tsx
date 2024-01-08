@@ -43,13 +43,24 @@ const ImageCard = ({ href, id, selectId, value }: ImageCardProps) => {
   );
 
   return (
-    <div className="flex flex-col items-center space-y-4">
+    <div
+      className={cn(
+        "flex flex-col items-center space-y-4 h-[300px]",
+        !loading && Array.isArray(selectId) && selectId.includes(id)
+          ? ""
+          : "opacity-50",
+        !loading && Array.isArray(selectId) && selectId.length === 0
+          ? "opacity-100"
+          : ""
+      )}
+    >
       <Image
         className={cn(
           "rounded-3xl",
-          !loading && Array.isArray(selectId) && selectId.includes(id)
-            ? "border-4 border-primary"
-            : "opacity-50",
+          !loading &&
+            Array.isArray(selectId) &&
+            selectId.includes(id) &&
+            "border-4 border-primary",
           !loading && Array.isArray(selectId) && selectId.length === 0
             ? "opacity-100"
             : ""
@@ -62,7 +73,7 @@ const ImageCard = ({ href, id, selectId, value }: ImageCardProps) => {
         placeholder="blur"
         blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAFklEQVR42mN8//HLfwYiAOOoQvoqBABbWyZJf74GZgAAAABJRU5ErkJggg=="
       />
-      <div>{value}</div>
+      <div className="text-center text-image leading-none">{value}</div>
     </div>
   );
 };

@@ -89,4 +89,8 @@ body,
   .input-box {
     @apply bg-[#2E2E37] py-6 rounded-md border-2 border-[#3C3A41] px-2;
   }
+
+  .text-title {
+    @apply font-semibold;
+  }
 }

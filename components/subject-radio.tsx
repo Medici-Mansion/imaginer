@@ -18,7 +18,7 @@ const SubjectRadio = ({
   loading,
 }: SubjectProps) => {
   return (
-    <div className="pt-5 w-full flex flex-col space-y-4">
+    <div className="pt-11 w-full flex flex-col space-y-4">
       {subjects.map((item: string, index: number) => (
         <div
           key={index}

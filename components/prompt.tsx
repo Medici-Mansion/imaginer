@@ -58,13 +58,13 @@ const Prompt = ({ cache = false, block = true, ...props }: PromptProps) => {
       },
       subject: {
         text: [{ value: subject, id: 0 }],
-        sub: "",
+        sub: ",",
         pre: "",
       },
       mood: {
         text: mood,
         sub: " mood with",
-        pre: "",
+        pre: " in a",
       },
       tone: {
         text: tone,
@@ -73,7 +73,7 @@ const Prompt = ({ cache = false, block = true, ...props }: PromptProps) => {
       },
       "artistic reference": {
         text: artisticreference,
-        sub: "",
+        sub: ".",
         pre: "reminiscent of",
       },
     };
@@ -108,11 +108,7 @@ const Prompt = ({ cache = false, block = true, ...props }: PromptProps) => {
     <motion.div
       layoutId="prompt"
       {...props}
-      className={cn(
-        "pt-10",
-        block ? "leading-[60px]" : "leading-8",
-        props.className
-      )}
+      className={cn("pt-10 leading-[60px]", props.className)}
     >
       <div ref={boxRef}>
         {Object.entries(boxItem)
