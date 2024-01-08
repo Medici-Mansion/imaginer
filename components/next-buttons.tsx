@@ -2,6 +2,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 import SubmitButton from "./submit-button";
+import Link from "next/link";
 
 const NextButtons = () => {
   const pathMap = {
@@ -16,15 +17,17 @@ const NextButtons = () => {
 
   return (
     <div className="justify-end flex pb-8 flex-1 items-center">
-      <SubmitButton
-        onClick={() => {
-          router.push(pathMap[pathname]);
-        }}
-        disabled={false}
-        className="bg-primary px-16 h-12 ml-auto block font-semibold"
-      >
-        Create
-      </SubmitButton>
+      <Link href="/generate">
+        <SubmitButton
+          onClick={() => {
+            router.push(pathMap[pathname]);
+          }}
+          disabled={false}
+          className="bg-primary px-16 h-12 ml-auto block font-semibold"
+        >
+          Create
+        </SubmitButton>
+      </Link>
     </div>
   );
 };
