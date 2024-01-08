@@ -49,7 +49,7 @@ const Prompt = ({ cache = false, block = true, ...props }: PromptProps) => {
         text: composition,
         pre: "A",
         sub: ",  ",
-        description: "Image Composite Description",
+        description: "",
       },
       style: {
         text: style,
@@ -87,6 +87,14 @@ const Prompt = ({ cache = false, block = true, ...props }: PromptProps) => {
     }
   }, []);
 
+  const boxItems = useMemo(
+    () =>
+      Object.entries(boxItem).filter(
+        (item) => block || !!item?.[1].text.length
+      ),
+    [block, boxItem]
+  );
+
   useEffect(() => {
     setMounted(true);
     let cr: HTMLDivElement;
@@ -111,22 +119,21 @@ const Prompt = ({ cache = false, block = true, ...props }: PromptProps) => {
       className={cn("pt-10 leading-[60px]", props.className)}
     >
       <div ref={boxRef}>
-        {Object.entries(boxItem)
-          .filter((item) => block || !!item?.[1].text.length)
-          .map(([key, value], index) => {
-            return (
-              <BoxText
-                block={block}
-                key={key}
-                bounding={bounding}
-                label={key}
-                pre={value.pre}
-                sub={value.sub}
-                text={value.text}
-                description={value.description}
-              />
-            );
-          })}
+        {boxItems.map(([key, value], index) => {
+          return (
+            <BoxText
+              isLast={index === boxItems.length - 1}
+              block={block}
+              key={key}
+              bounding={bounding}
+              label={key}
+              pre={value.pre}
+              sub={value.sub}
+              text={value.text}
+              description={value.description}
+            />
+          );
+        })}
       </div>
     </motion.div>
   );

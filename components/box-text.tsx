@@ -14,6 +14,7 @@ import { Images } from "@/types";
 
 interface BoxTextProps extends HTMLMotionProps<"div"> {
   block: boolean;
+  isLast: boolean;
   label: string;
   text?: Omit<Images, "href">[];
   sub?: string;
@@ -35,6 +36,7 @@ const BoxText = ({
   bounding,
   description,
   block,
+  isLast,
   ...rest
 }: BoxTextProps) => {
   const { className, pre, ...extractPropsByClassName } = rest;
@@ -112,12 +114,10 @@ const BoxText = ({
                 ref={boxRef}
                 layoutId={label}
                 onClick={() =>
-                  block &&
                   router.push(routerMap[label as keyof typeof routerMap])
                 }
                 className={cn(
-                  "text-sm rounded-sm px-2 text-white whitespace-nowrap flex items-center",
-                  block && "cursor-pointer",
+                  "text-sm rounded-sm px-2 text-white whitespace-nowrap flex items-center cursor-pointer hover:bg-primary hover:text-black",
                   !text?.length
                     ? "text-base"
                     : direction.direction === "top"
@@ -130,7 +130,7 @@ const BoxText = ({
                 )}
                 style={{
                   left: `${direction.left}px`,
-                  transition: "background-color 0.2s ease-in-out",
+                  transition: "background-color 0.1s ease-in-out",
                   ...extractPropsByClassName.style,
                 }}
                 {...extractPropsByClassName}
@@ -171,13 +171,17 @@ const BoxText = ({
           </small>
         )}
       </div>
-      {!isEndsWithComma && sub && (
-        <small className="text-white bottom-0 text-[100%]">
-          &nbsp;
-          {label === "mood" && !text?.length ? sub?.replace("mood ", " ") : sub}
-          &nbsp;
-        </small>
-      )}
+      {!isEndsWithComma &&
+        (!isLast
+          ? sub && (
+              <small className="text-white bottom-0 text-[100%]">
+                {label === "mood" && !text?.length
+                  ? sub?.replace("mood ", " ")
+                  : sub}
+                &nbsp;
+              </small>
+            )
+          : ".")}
     </div>
   );
 };
