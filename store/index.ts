@@ -61,6 +61,7 @@ const usePrompt = create(
     {
       name: "promptData",
       storage: createJSONStorage(() => localStorage),
+      version: 2,
     }
   )
 );
