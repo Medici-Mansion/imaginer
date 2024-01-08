@@ -165,7 +165,7 @@ const BoxText = ({
           <small className="text-white bottom-0 text-[100%]">
             &nbsp;
             {label === "mood" && !text?.length
-              ? sub?.replace("mood ", " ")
+              ? sub?.replace("mood", " ")
               : sub}
             &nbsp;
           </small>
@@ -175,13 +175,15 @@ const BoxText = ({
         (!isLast
           ? sub && (
               <small className="text-white bottom-0 text-[100%]">
-                {label === "mood" && !text?.length
-                  ? sub?.replace("mood ", " ")
+                {["mood", "tone"].includes(label) && !text?.length
+                  ? sub?.replace("mood", " ").replace("tones", "")
                   : sub}
                 &nbsp;
               </small>
             )
-          : ".")}
+          : label === "mood"
+          ? " mood."
+          : sub?.replace(",", "") + ".")}
     </div>
   );
 };

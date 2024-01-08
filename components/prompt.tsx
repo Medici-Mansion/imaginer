@@ -12,6 +12,7 @@ import {
 import { cn } from "@/lib/utils";
 import { HTMLMotionProps, motion } from "framer-motion";
 import { Images } from "@/types";
+import { promptSetting } from "@/constants";
 
 interface PromptProps extends HTMLMotionProps<"div"> {
   cache?: boolean;
@@ -46,35 +47,28 @@ const Prompt = ({ cache = false, block = true, ...props }: PromptProps) => {
       };
     } = {
       composition: {
+        ...promptSetting["composition"],
         text: composition,
-        pre: "A",
-        sub: ",  ",
-        description: "",
       },
       style: {
+        ...promptSetting["style"],
         text: style,
-        sub: "-depliction of",
-        pre: "",
       },
       subject: {
+        ...promptSetting["subject"],
         text: [{ value: subject, id: 0 }],
-        sub: ",",
-        pre: "",
       },
       mood: {
+        ...promptSetting["mood"],
         text: mood,
-        sub: " mood with",
-        pre: " in a",
       },
       tone: {
+        ...promptSetting["tone"],
         text: tone,
-        sub: ",",
-        pre: "",
       },
       "artistic reference": {
+        ...promptSetting["artistic reference"],
         text: artisticreference,
-        sub: ".",
-        pre: "reminiscent of",
       },
     };
     return boxes;
