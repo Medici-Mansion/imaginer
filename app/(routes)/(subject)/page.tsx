@@ -81,7 +81,7 @@ const SubjectPage = () => {
     setSubject(args.subject);
   };
 
-  const visible = subjects.length > 0;
+  const visible = subjects.length > 0 || subject === "";
   return (
     <div className="py-6">
       <Form {...form}>
@@ -103,7 +103,7 @@ const SubjectPage = () => {
           />
         ) : null}
       </div>
-      {visible ? (
+      {visible && subject ? (
         <div className="flex justify-end pt-12 pr-32">
           <SubmitButton
             className="bg-primary px-16 font-semibold"

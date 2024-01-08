@@ -15,6 +15,7 @@ export interface NavProps extends HTMLAttributes<HTMLAnchorElement> {
   title: string;
   pathname: string;
   isLoading: boolean;
+  active: boolean
 }
 
 export interface ImageCardProps {
